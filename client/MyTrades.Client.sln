@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.0.0
 MinimumVisualStudioVersion = 16.0.0.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyTrader", "MyTrader\MyTrader.csproj", "{F009DFE1-D418-4E20-9904-D28BFCB9801A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyTrades", "MyTrades\MyTrades.csproj", "{F009DFE1-D418-4E20-9904-D28BFCB9801A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyTrader.Client", "MyTrader.Client\MyTrader.Client.csproj", "{040A59B2-92F5-4EBE-B68D-C9226FA328BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyTrades.Client", "MyTrades.Client\MyTrades.Client.csproj", "{040A59B2-92F5-4EBE-B68D-C9226FA328BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

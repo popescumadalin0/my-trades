@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
+        <RootNamespace>MyTrades</RootNamespace>
     </PropertyGroup>
 
 
@@ -10,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MyTrader.Client\MyTrader.Client.csproj"/>
+        <ProjectReference Include="..\MyTrades.Client\MyTrades.Client.csproj" />
     </ItemGroup>
 
 </Project>

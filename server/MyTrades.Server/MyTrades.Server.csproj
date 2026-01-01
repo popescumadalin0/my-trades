@@ -2,7 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
-        <UserSecretsId>MyTrader.Server-local</UserSecretsId>
+        <UserSecretsId>MyTrades.Server-local</UserSecretsId>
+        <RootNamespace>MyTrades.Server</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

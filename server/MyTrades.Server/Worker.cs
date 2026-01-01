@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace MyTrader.Server;
+namespace MyTrades.Server;
 
 public class Worker(ILogger<Worker> logger) : BackgroundService
 {

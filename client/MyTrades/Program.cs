@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
-using MyTrader.Components;
+using MyTrades.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +35,6 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(MyTrader.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(MyTrades.Client._Imports).Assembly);
 
 app.Run();
