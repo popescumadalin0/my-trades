@@ -5,39 +5,12 @@
     <projectFile profileName="http">MyTrader/MyTrader.csproj</projectFile>
     <projectFile profileName="https">MyTrader/MyTrader.csproj</projectFile>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="0b08ebcd-49a4-4970-b616-9b039749d2ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MyTrader.Client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MyTrader.Client/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client.sln" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/Layout/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/Layout/MainLayout.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/Layout/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/Layout/NavMenu.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/MyTrader.Client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/MyTrades.Client.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/Pages/Counter.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/Pages/Counter.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/Pages/Home.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/Pages/Home.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/Pages/Weather.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/Pages/Weather.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/Routes.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/Routes.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/_Imports.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/_Imports.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/wwwroot/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/wwwroot/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader.Client/wwwroot/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades.Client/wwwroot/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/Components/App.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/Components/App.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/Components/Pages/Error.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/Components/Pages/Error.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/Components/_Imports.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/Components/_Imports.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/MyTrader.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/MyTrades.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyTrader/wwwroot/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/MyTrades/wwwroot/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/MyTrader.Server/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/MyTrader.Server/MyTrader.Server.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../server/MyTrades.Server/MyTrades.Server.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/MyTrader.Server/MyTrader.Server.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/MyTrader.Server/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/MyTrader.Server/Properties/launchSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/MyTrader.Server/Worker.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/MyTrader.Server/appsettings.Development.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/MyTrader.Server/appsettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MyTrader.Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MyTrader.Client/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,21 +20,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "popescumadalin0"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;popescumadalin0&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/popescumadalin0/my-trader.git",
-    "accountId": "9664f882-66fc-4343-860d-7a80f6bbeadf"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/popescumadalin0/my-trader.git&quot;,
+    &quot;accountId&quot;: &quot;9664f882-66fc-4343-860d-7a80f6bbeadf&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="37cKW4tLjpmTM8UItGXtVU1pTKu" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -73,7 +47,12 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "augment.onboarding.workspace.first.indexed.C:/Work/my-trader/client": "true",
     "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -127,6 +106,11 @@
         <option name="Build" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.MyTrader: http" />
+      <item itemvalue=".NET Launch Settings Profile.MyTrader: https" />
+      <item itemvalue=".NET Project.MyTrader.Client" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -143,6 +127,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -157,5 +142,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

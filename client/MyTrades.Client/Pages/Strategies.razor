@@ -1,0 +1,24 @@
+@page "/strategies"
+@using MyTrades.Client.Models
+@inject MyTrades.Client.Services.MockDataService DataService
+
+<PageTitle>Strategies</PageTitle>
+
+<MudText Typo="Typo.h4">Strategies</MudText>
+
+<MudTable Items="DataService.Strategies" Hover="true">
+    <HeaderContent>
+        <MudTh>Strategy</MudTh>
+        <MudTh>Win Rate</MudTh>
+        <MudTh>Trades</MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Strategy">@context.Name</MudTd>
+        <MudTd DataLabel="WinRate">@context.WinRate %</MudTd>
+        <MudTd DataLabel="Trades">@context.TradesCount</MudTd>
+        <MudTd>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="@($"/strategies/edit/{context.Id}")">Edit</MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>

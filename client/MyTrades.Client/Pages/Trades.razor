@@ -1,0 +1,59 @@
+@page "/trades"
+@using MyTrades.Client.Models
+@inject MyTrades.Client.Services.MockDataService DataService
+
+<PageTitle>Trades</PageTitle>
+
+<MudText Typo="Typo.h4">Trades</MudText>
+
+<MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="OpenNewTrade">New Trade</MudButton>
+
+<MudTable Items="DataService.Trades" Hover="true">
+    <HeaderContent>
+        <MudTh>Strategy</MudTh>
+        <MudTh>Id</MudTh>
+        <MudTh>Stop Loss</MudTh>
+        <MudTh>Take Profit</MudTh>
+        <MudTh>Entry</MudTh>
+        <MudTh>PnL</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Strategy">@context.StrategyName</MudTd>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="StopLoss">@context.StopLoss</MudTd>
+        <MudTd DataLabel="TakeProfit">@context.TakeProfit</MudTd>
+        <MudTd DataLabel="Entry">@context.Entry</MudTd>
+        <MudTd DataLabel="Pnl">@context.Pnl</MudTd>
+    </RowTemplate>
+</MudTable>
+
+<MudDialog @bind-IsOpen="_createOpen">
+    <DialogContent>
+        <MudTextField Label="Strategy name" @bind-Value="_newTrade.StrategyName" />
+        <MudTextField Label="Symbol" @bind-Value="_newTrade.Symbol" />
+        <MudNumericField Label="Entry" @bind-Value="_newTrade.Entry" />
+        <MudNumericField Label="StopLoss" @bind-Value="_newTrade.StopLoss" />
+        <MudNumericField Label="TakeProfit" @bind-Value="_newTrade.TakeProfit" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="AddTrade" Variant="Variant.Filled">Add</MudButton>
+        <MudButton OnClick="(()=> _createOpen=false)" Variant="Variant.Text">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code{
+    private bool _createOpen = false;
+    private Trade _newTrade = new Trade();
+
+    private void OpenNewTrade()
+    {
+        _newTrade = new Trade();
+        _createOpen = true;
+    }
+
+    private void AddTrade()
+    {
+        DataService.Trades.Add(_newTrade);
+        _createOpen = false;
+    }
+}

@@ -1,0 +1,36 @@
+@page "/strategies/edit/{Id:guid}"
+@using MyTrades.Client.Models
+@inject MyTrades.Client.Services.MockDataService DataService
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private Strategy? _strategy;
+
+    protected override void OnInitialized()
+    {
+        _strategy = DataService.Strategies.FirstOrDefault(s => s.Id == Id);
+    }
+}
+
+<PageTitle>Edit Strategy</PageTitle>
+
+@if (_strategy == null)
+{
+    <MudText>Strategy not found</MudText>
+}
+else
+{
+    <MudText Typo="Typo.h5">Editing @_strategy.Name</MudText>
+    <MudTextField @bind-Value="_strategy.Name" Label="Name" />
+    <MudNumericField @bind-Value="_strategy.WinRate" Label="Win rate" />
+    <MudNumericField @bind-Value="_strategy.TradesCount" Label="Trades count" />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Save">Save</MudButton>
+}
+
+@code {
+    private void Save()
+    {
+        // in mock service the object is already updated (bound). In real app we'd call an API
+    }
+}
