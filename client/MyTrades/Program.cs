@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
-using MyTrades.Client.Services;
 using MyTrades.Components;
 using MyTrades.Components;
 
@@ -15,8 +14,7 @@ builder.Services.AddMudServices();
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddSingleton<MockDataService>();
-
+builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 

@@ -5,7 +5,7 @@
     [Parameter]
     public Guid Id { get; set; }
 
-    private Strategy? _strategy;
+    private StrategyModel? _strategy;
 
     protected override void OnInitialized()
     {
@@ -26,11 +26,4 @@ else
     <MudNumericField @bind-Value="_strategy.WinRate" Label="Win rate" />
     <MudNumericField @bind-Value="_strategy.TradesCount" Label="Trades count" />
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Save">Save</MudButton>
-}
-
-@code {
-    private void Save()
-    {
-        // in mock service the object is already updated (bound). In real app we'd call an API
-    }
 }

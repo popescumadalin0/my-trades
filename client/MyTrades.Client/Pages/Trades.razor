@@ -29,31 +29,14 @@
 
 <MudDialog @bind-IsOpen="_createOpen">
     <DialogContent>
-        <MudTextField Label="Strategy name" @bind-Value="_newTrade.StrategyName" />
-        <MudTextField Label="Symbol" @bind-Value="_newTrade.Symbol" />
-        <MudNumericField Label="Entry" @bind-Value="_newTrade.Entry" />
-        <MudNumericField Label="StopLoss" @bind-Value="_newTrade.StopLoss" />
-        <MudNumericField Label="TakeProfit" @bind-Value="_newTrade.TakeProfit" />
+        <MudTextField Label="Strategy name" @bind-Value="_newTradeModel.StrategyName" />
+        <MudTextField Label="Symbol" @bind-Value="_newTradeModel.Symbol" />
+        <MudNumericField Label="Entry" @bind-Value="_newTradeModel.Entry" />
+        <MudNumericField Label="StopLoss" @bind-Value="_newTradeModel.StopLoss" />
+        <MudNumericField Label="TakeProfit" @bind-Value="_newTradeModel.TakeProfit" />
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="AddTrade" Variant="Variant.Filled">Add</MudButton>
         <MudButton OnClick="(()=> _createOpen=false)" Variant="Variant.Text">Cancel</MudButton>
     </DialogActions>
 </MudDialog>
-
-@code{
-    private bool _createOpen = false;
-    private Trade _newTrade = new Trade();
-
-    private void OpenNewTrade()
-    {
-        _newTrade = new Trade();
-        _createOpen = true;
-    }
-
-    private void AddTrade()
-    {
-        DataService.Trades.Add(_newTrade);
-        _createOpen = false;
-    }
-}
