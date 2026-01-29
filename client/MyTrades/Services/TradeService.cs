@@ -8,13 +8,39 @@ namespace MyTrades.Services;
 
 public class TradeService : ITradeService
 {
-    public Task<List<Trade>> GetTradesAsync()
+    public async Task<ApiResponse<List<Trade>>> GetTradesAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return new ApiResponse<List<Trade>>(new List<Trade>()
+            {
+                new Trade()
+                {
+                    Id = Guid.NewGuid(),
+                    CurrentPrice = 1,
+                    Entry = 1,
+                    StopLoss = 2,
+                    TakeProfit = 3,
+                    StrategyName = "test",
+                    Symbol = "AAPL",
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            return new ApiResponse<List<Trade>>(e);
+        }
     }
 
-    public Task AddOrUpdateTradeAsync(Trade trade)
+    public async Task<ApiResponse> AddOrUpdateTradeAsync(Trade trade)
     {
-        throw new NotImplementedException();
+        try
+        {
+            throw new NotImplementedException();
+        }
+        catch (Exception ex)
+        {
+            return new ApiResponse(ex);
+        }
     }
 }

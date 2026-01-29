@@ -1,6 +1,5 @@
 ﻿@page "/"
 @using MyTrades.Client.Models
-@inject MockDataService DataService
 
 <PageTitle>Home</PageTitle>
 
@@ -10,7 +9,7 @@
     <MudItem xs="12" sm="12" md="4">
         <MudPaper Class="pa-4">
             <MudText Typo="Typo.h6">Top Strategies</MudText>
-            <MudTable Items="DataService.Strategies.OrderByDescending(s => s.Profit).Take(5)">
+            <MudTable Items="Strategies.OrderByDescending(s => s.Profit).Take(5)">
                 <HeaderContent>
                     <MudTh>Name</MudTh>
                     <MudTh>Profit</MudTh>
@@ -26,7 +25,7 @@
     <MudItem xs="12" sm="12" md="4">
         <MudPaper Class="pa-4">
             <MudText Typo="Typo.h6">Recent Trades</MudText>
-            <MudTable Items="DataService.Trades.OrderByDescending(t => t.Id).Take(5)">
+            <MudTable Items="Trades.OrderByDescending(t => t.Id).Take(5)">
                 <HeaderContent>
                     <MudTh>Symbol</MudTh>
                     <MudTh>Strategy</MudTh>
@@ -45,7 +44,7 @@
         <MudPaper Class="pa-4">
             <MudText Typo="Typo.h6">Watchlist CFDs</MudText>
             <MudList T="TradeModel">
-                @foreach(var t in DataService.Trades.Take(8))
+                @foreach(var t in Trades.Take(8))
                 {
                     <MudListItem T="TradeModel">
                         <MudText>@t.Symbol - @t.CurrentPrice</MudText>

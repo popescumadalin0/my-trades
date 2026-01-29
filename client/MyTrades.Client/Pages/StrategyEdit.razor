@@ -1,17 +1,5 @@
 @page "/strategies/edit/{Id:guid}"
 @using MyTrades.Client.Models
-@inject MyTrades.Client.Services.MockDataService DataService
-@code {
-    [Parameter]
-    public Guid Id { get; set; }
-
-    private StrategyModel? _strategy;
-
-    protected override void OnInitialized()
-    {
-        _strategy = DataService.Strategies.FirstOrDefault(s => s.Id == Id);
-    }
-}
 
 <PageTitle>Edit Strategy</PageTitle>
 

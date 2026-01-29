@@ -1,12 +1,10 @@
 @page "/strategies"
-@using MyTrades.Client.Models
-@inject MyTrades.Client.Services.MockDataService DataService
 
 <PageTitle>Strategies</PageTitle>
 
 <MudText Typo="Typo.h4">Strategies</MudText>
 
-<MudTable Items="DataService.Strategies" Hover="true">
+<MudTable Items="StrategyModels" Hover="true">
     <HeaderContent>
         <MudTh>Strategy</MudTh>
         <MudTh>Win Rate</MudTh>

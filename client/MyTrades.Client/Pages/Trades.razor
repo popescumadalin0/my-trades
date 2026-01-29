@@ -1,6 +1,4 @@
 @page "/trades"
-@using MyTrades.Client.Models
-@inject MyTrades.Client.Services.MockDataService DataService
 
 <PageTitle>Trades</PageTitle>
 
@@ -8,7 +6,7 @@
 
 <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="OpenNewTrade">New Trade</MudButton>
 
-<MudTable Items="DataService.Trades" Hover="true">
+<MudTable Items="@TradeModels" Hover="true">
     <HeaderContent>
         <MudTh>Strategy</MudTh>
         <MudTh>Id</MudTh>

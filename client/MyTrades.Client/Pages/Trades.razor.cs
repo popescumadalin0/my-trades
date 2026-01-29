@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using MyTrades.Client.Contracts;
 using MyTrades.Client.Models;
 
 namespace MyTrades.Client.Pages;
@@ -6,6 +10,17 @@ public partial class Trades
 {
     private bool _createOpen = false;
     private TradeModel _newTradeModel = new TradeModel();
+    
+    [Inject] public ITradeModelService TradeService { get; set; }
+    
+    private List<TradeModel> TradeModels { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        TradeModels = await TradeService.GetTradesAsync();
+        
+        await base.OnInitializedAsync();
+    }
 
     private void OpenNewTrade()
     {
@@ -15,7 +30,7 @@ public partial class Trades
 
     private void AddTrade()
     {
-        DataService.Trades.Add(_newTradeModel);
+        TradeModels.Add(_newTradeModel);
         _createOpen = false;
     }
 }

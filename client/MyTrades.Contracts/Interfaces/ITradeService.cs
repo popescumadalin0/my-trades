@@ -4,7 +4,7 @@ namespace MyTrades.Contracts.Interfaces;
 
 public interface ITradeService
 {
-    public Task<List<Trade>> GetTradesAsync();
+    public Task<ApiResponse<List<Trade>>> GetTradesAsync();
     
-    public Task AddOrUpdateTradeAsync(Trade trade);
+    public Task<ApiResponse> AddOrUpdateTradeAsync(Trade trade);
 }

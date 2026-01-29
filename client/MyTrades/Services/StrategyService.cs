@@ -8,13 +8,37 @@ namespace MyTrades.Services;
 
 public class StrategyService : IStrategyService
 {
-    public Task<List<Strategy>> GetStrategiesAsync()
+    public async Task<ApiResponse<List<Strategy>>> GetStrategiesAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return new ApiResponse<List<Strategy>>(new List<Strategy>()
+            {
+                new Strategy()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "something",
+                    Profit = 1,
+                    TradesCount = 2,
+                    WinRate = 20
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            return new ApiResponse<List<Strategy>>(ex);
+        }
     }
 
-    public Task AddOrUpdateStrategyAsync(Strategy strategy)
+    public async Task<ApiResponse> AddOrUpdateStrategyAsync(Strategy strategy)
     {
-        throw new NotImplementedException();
+        try
+        {
+            throw new NotImplementedException();
+        }
+        catch (Exception ex)
+        {
+            return new ApiResponse(ex);
+        }
     }
 }
