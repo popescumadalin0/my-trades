@@ -27,15 +27,15 @@ public class TradeModelService : ITradeModelService
 
     public async Task<List<TradeModel>> GetTradesAsync()
     {
-        var strategies = await _tradeService.GetTradesAsync();
+        var trades = await _tradeService.GetTradesAsync();
 
-        if (!strategies.Success)
+        if (!trades.Success)
         {
-            _snackbar.Add(strategies.ErrorMessage, Severity.Error);
-            Console.WriteLine(strategies.ServerErrorMessage);
+            _snackbar.Add(trades.ErrorMessage, Severity.Error);
+            Console.WriteLine(trades.ServerErrorMessage);
         }
 
-        var response = _mapper.Map<List<TradeModel>>(strategies);
+        var response = _mapper.Map<List<TradeModel>>(trades.Data);
         return response;
     }
 

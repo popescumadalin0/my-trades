@@ -35,7 +35,7 @@ public class StrategyModelService : IStrategyModelService
             Console.WriteLine(strategies.ServerErrorMessage);
         }
 
-        var response = _mapper.Map<List<StrategyModel>>(strategies);
+        var response = _mapper.Map<List<StrategyModel>>(strategies.Data);
         return response;
     }
 

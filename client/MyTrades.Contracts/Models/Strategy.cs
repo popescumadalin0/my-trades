@@ -9,6 +9,7 @@ public class Strategy
     public decimal Profit { get; set; }
 }
 
+//todo: include these in the SDK
 public class ApiResponse
 {
     public bool Success { get; set; }

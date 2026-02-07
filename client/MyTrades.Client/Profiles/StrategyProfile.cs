@@ -2,7 +2,7 @@ using AutoMapper;
 using MyTrades.Client.Models;
 using MyTrades.Contracts.Models;
 
-namespace MyTrades.Profiles;
+namespace MyTrades.Client.Profiles;
 
 public class StrategyProfile : Profile
 {
