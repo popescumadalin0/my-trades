@@ -1,4 +1,6 @@
-namespace MyTrades.Contracts.Models;
+using System;
+
+namespace MyTrades.Contracts;
 
 public class Strategy
 {

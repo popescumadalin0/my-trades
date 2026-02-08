@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using MyTrades.Client.Contracts;
 using MyTrades.Client.Models;
@@ -11,7 +9,7 @@ public partial class Trades
     private bool _createOpen = false;
     private TradeModel _newTradeModel = new TradeModel();
     
-    [Inject] public ITradeModelService TradeService { get; set; }
+    [Inject] public ITradeService TradeService { get; set; }
     
     private List<TradeModel> TradeModels { get; set; }
 

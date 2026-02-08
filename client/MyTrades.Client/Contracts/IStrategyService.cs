@@ -1,10 +1,10 @@
-using MyTrades.Contracts.Models;
+using MyTrades.Client.Models;
 
-namespace MyTrades.Contracts.Interfaces;
+namespace MyTrades.Client.Contracts;
 
 public interface IStrategyService
 {
-    public Task<ApiResponse<List<Strategy>>> GetStrategiesAsync();
+    public Task<List<StrategyModel>> GetStrategiesAsync();
     
-    public Task<ApiResponse> AddOrUpdateStrategyAsync(Strategy strategy);
+    public Task AddOrUpdateStrategyAsync(StrategyModel model);
 }

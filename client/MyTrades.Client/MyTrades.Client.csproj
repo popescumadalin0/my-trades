@@ -10,8 +10,13 @@
         <PackageReference Include="AutoMapper" Version="16.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.9" />
         <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="9.0.0"/>
         <PackageReference Include="MudBlazor" Version="8.15.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\sdk\MyTrades.Contracts\MyTrades.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

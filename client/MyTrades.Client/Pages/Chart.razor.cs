@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace MyTrades.Client.Pages;
 
 public partial class Chart

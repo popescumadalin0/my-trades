@@ -16,4 +16,8 @@ builder.Services.AddMsalAuthentication(options =>
 
 builder.Services.AddMudServices();
 
+builder.Services.AddClientServices(builder.Configuration);
+builder.Services.AddAutoMapper();
+
+
 await builder.Build().RunAsync();

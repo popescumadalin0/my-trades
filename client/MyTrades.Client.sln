@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Client", "MyTrades.Client/MyTrades.Client.csproj", "{702A7DA5-6E25-42F7-B276-F5014AD3325D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Contracts", "MyTrades.Contracts\MyTrades.Contracts.csproj", "{B6C43626-53AD-4FC4-8046-F65DAF90A5ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Contracts", "../sdk/MyTrades.Contracts\MyTrades.Contracts.csproj", "{B6C43626-53AD-4FC4-8046-F65DAF90A5ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

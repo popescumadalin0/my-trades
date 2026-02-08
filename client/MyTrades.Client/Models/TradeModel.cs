@@ -1,5 +1,3 @@
-using System;
-
 namespace MyTrades.Client.Models;
 
 public class TradeModel
