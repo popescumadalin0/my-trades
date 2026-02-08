@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MyTrades.Client.Models;
+using MyTrades.Contracts.Models;
 
-namespace MyTrades.Client.Contracts;
+namespace MyTrades.Contracts.Interfaces;
 
-public interface ITradeModelService
+public interface ITradeService
 {
-    public Task<List<TradeModel>> GetTradesAsync();
+    public Task<ApiResponse<List<Trade>>> GetTradesAsync();
     
-    public Task AddOrUpdateTradeAsync(TradeModel trade);
+    public Task<ApiResponse> AddOrUpdateTradeAsync(Trade trade);
 }

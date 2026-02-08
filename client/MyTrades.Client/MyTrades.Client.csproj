@@ -1,18 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <RootNamespace>MyTrades.Client</RootNamespace>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="13.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.11" />
-    <PackageReference Include="MudBlazor" Version="8.15.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MyTrades.Contracts\MyTrades.Contracts.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="16.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="9.0.0"/>
+        <PackageReference Include="MudBlazor" Version="8.15.0" />
+    </ItemGroup>
 
 </Project>
