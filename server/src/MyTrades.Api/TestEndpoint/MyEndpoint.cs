@@ -1,5 +1,7 @@
 using FastEndpoints;
 
+namespace MyTrades.Api.TestEndpoint;
+
 public class MyEndpoint : Endpoint<MyRequest, MyResponse>
 {
     public override void Configure()

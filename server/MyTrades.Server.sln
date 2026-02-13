@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Domain", "src\MyTr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Processor", "src\MyTrades.Processor\MyTrades.Processor.csproj", "{77D20401-97BE-4D58-A15A-BED229E07B9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Cache", "src\MyTrades.Cache\MyTrades.Cache.csproj", "{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{77D20401-97BE-4D58-A15A-BED229E07B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77D20401-97BE-4D58-A15A-BED229E07B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77D20401-97BE-4D58-A15A-BED229E07B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

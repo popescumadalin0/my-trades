@@ -1,3 +1,5 @@
+namespace MyTrades.Api.TestEndpoint;
+
 public class MyRequest
 {
     public string FirstName { get; set; }
