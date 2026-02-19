@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Processor", "src\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Cache", "src\MyTrades.Cache\MyTrades.Cache.csproj", "{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.EventSource", "src\MyTrades.EventSource\MyTrades.EventSource.csproj", "{9962A40A-121E-4C5C-B286-EA9F97ACC60D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FAF9B1B-2174-4DFD-A1A0-9E0F62B5EF58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9962A40A-121E-4C5C-B286-EA9F97ACC60D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9962A40A-121E-4C5C-B286-EA9F97ACC60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9962A40A-121E-4C5C-B286-EA9F97ACC60D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9962A40A-121E-4C5C-B286-EA9F97ACC60D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
