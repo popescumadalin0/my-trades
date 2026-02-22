@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyTrades.Cache")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0877cbf5e80126050ac6fd55b5ed8d495ae32f68")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be53a92d254fd0255b06f10fc1b6e4d78107ffb1")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyTrades.Cache")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyTrades.Cache")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

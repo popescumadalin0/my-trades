@@ -1,5 +1,4 @@
 using FastEndpoints;
-using JasperFx.Environment;
 using Mapster;
 using MyTrades.Domain;
 using Serilog;
