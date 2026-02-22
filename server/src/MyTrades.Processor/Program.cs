@@ -1,4 +1,6 @@
 using Mapster;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using MyTrades.Domain;
 using Serilog;
 
