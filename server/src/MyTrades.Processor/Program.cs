@@ -22,4 +22,12 @@ builder.Services.AddLogging(b =>
 builder.Services.AddMapster();
 
 var app = builder.Build();
+
+//migration runner
+using (var scope = app.Services.CreateScope())
+{
+    var runner = scope.ServiceProvider.GetRequiredService<MigrationRunner>();
+    await runner.RunAsync();
+}
+
 app.Run();

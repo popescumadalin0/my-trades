@@ -9,5 +9,16 @@
       <PackageReference Include="Dapper" Version="2.1.66" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+      <PackageReference Include="Npgsql" Version="10.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Migrations\000_Init.sql" />
+      <EmbeddedResource Include="Migrations\000_Init.sql">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Migrations\001_AddIndexes.sql" />
+      <EmbeddedResource Include="Migrations\001_AddIndexes.sql">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 </Project>

@@ -5,7 +5,10 @@ namespace MyTrades.Domain;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration config){
+    public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddScoped<MigrationRunner>();
+        
         return services;
     }
 }
