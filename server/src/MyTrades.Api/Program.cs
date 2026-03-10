@@ -1,7 +1,5 @@
 using FastEndpoints;
 using Mapster;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using MyTrades.Domain;
 using Serilog;
 
@@ -15,9 +13,9 @@ builder.Services.AddLogging(b =>
 {
     var loggerConfiguration = new LoggerConfiguration()
         .ReadFrom.Configuration(builder.Configuration)
-        .Enrich.FromLogContext() // No need
+        /*.Enrich.FromLogContext() // No need
         .WriteTo.Console() // No need
-        .WriteTo.File("Logs/Log.txt") // No Need
+        .WriteTo.File("Logs/Log.txt") // No Need*/
         .CreateLogger();
     b.AddSerilog(loggerConfiguration, dispose: true);
 });

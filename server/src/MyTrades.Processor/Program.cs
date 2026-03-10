@@ -1,6 +1,5 @@
 using Mapster;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+using MyTrades.Cache;
 using MyTrades.Domain;
 using Serilog;
 
@@ -8,13 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDomainServices(builder.Configuration);
 
+builder.Services.AddCacheServices(builder.Configuration);
+
 builder.Services.AddLogging(b =>
 {
     var loggerConfiguration = new LoggerConfiguration()
         .ReadFrom.Configuration(builder.Configuration)
-        .Enrich.FromLogContext() // No need
+        /*.Enrich.FromLogContext() // No need
         .WriteTo.Console() // No need
-        .WriteTo.File("Logs/Log.txt") // No Need
+        .WriteTo.File("Logs/Log.txt") // No Need*/
         .CreateLogger();
     b.AddSerilog(loggerConfiguration, dispose: true);
 });

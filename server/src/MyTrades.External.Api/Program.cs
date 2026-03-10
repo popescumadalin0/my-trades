@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using MyTrades.External.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -15,57 +16,60 @@ app.MapGet("/api/candles", (string symbol = "BTCUSDT") =>
 
 app.Run();
 
-public record Candle(
-    string Symbol,
-    DateTime OpenTime,
-    decimal Open,
-    decimal High,
-    decimal Low,
-    decimal Close,
-    decimal Volume
-);
-
-public static class MarketSimulator
+namespace MyTrades.External.Api
 {
-    private static readonly ConcurrentDictionary<string, Candle> _candles = new();
-    private static readonly ConcurrentDictionary<string, decimal> _lastClose = new();
-    private static readonly Random _random = new();
+    public record Candle(
+        string Symbol,
+        DateTime OpenTime,
+        decimal Open,
+        decimal High,
+        decimal Low,
+        decimal Close,
+        decimal Volume
+    );
 
-    public static Candle GetCurrentCandle(string symbol, DateTime minuteKey)
+    public static class MarketSimulator
     {
-        var key = $"{symbol}_{minuteKey:yyyyMMddHHmm}";
+        private static readonly ConcurrentDictionary<string, Candle> _candles = new();
+        private static readonly ConcurrentDictionary<string, decimal> _lastClose = new();
+        private static readonly Random _random = new();
 
-        return _candles.GetOrAdd(key, _ =>
+        public static Candle GetCurrentCandle(string symbol, DateTime minuteKey)
         {
-            var previousClose = _lastClose.GetOrAdd(symbol, _ => 50000m);
+            var key = $"{symbol}_{minuteKey:yyyyMMddHHmm}";
 
-            var volatility = 0.002m; // 0.2% per minute
-            var drift = (decimal)(_random.NextDouble() - 0.5) * 0.001m; // mic trend
+            return _candles.GetOrAdd(key, _ =>
+            {
+                var previousClose = _lastClose.GetOrAdd(symbol, _ => 50000m);
 
-            var changePercent = drift + (decimal)(_random.NextDouble() - 0.5) * volatility;
-            var close = previousClose * (1 + changePercent);
+                var volatility = 0.002m; // 0.2% per minute
+                var drift = (decimal)(_random.NextDouble() - 0.5) * 0.001m; // mic trend
 
-            var high = Math.Max(previousClose, close) *
-                       (1 + (decimal)_random.NextDouble() * 0.001m);
+                var changePercent = drift + (decimal)(_random.NextDouble() - 0.5) * volatility;
+                var close = previousClose * (1 + changePercent);
 
-            var low = Math.Min(previousClose, close) *
-                      (1 - (decimal)_random.NextDouble() * 0.001m);
+                var high = Math.Max(previousClose, close) *
+                           (1 + (decimal)_random.NextDouble() * 0.001m);
 
-            var volume = (decimal)(_random.NextDouble() * 100 + 10);
+                var low = Math.Min(previousClose, close) *
+                          (1 - (decimal)_random.NextDouble() * 0.001m);
 
-            var candle = new Candle(
-                symbol,
-                minuteKey,
-                decimal.Round(previousClose, 2),
-                decimal.Round(high, 2),
-                decimal.Round(low, 2),
-                decimal.Round(close, 2),
-                decimal.Round(volume, 2)
-            );
+                var volume = (decimal)(_random.NextDouble() * 100 + 10);
 
-            _lastClose[symbol] = candle.Close;
+                var candle = new Candle(
+                    symbol,
+                    minuteKey,
+                    decimal.Round(previousClose, 2),
+                    decimal.Round(high, 2),
+                    decimal.Round(low, 2),
+                    decimal.Round(close, 2),
+                    decimal.Round(volume, 2)
+                );
 
-            return candle;
-        });
+                _lastClose[symbol] = candle.Close;
+
+                return candle;
+            });
+        }
     }
 }

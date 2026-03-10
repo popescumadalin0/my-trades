@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.EventSource", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.External.Api", "src\MyTrades.External.Api\MyTrades.External.Api.csproj", "{F71E4779-3DD7-4B40-8F96-788E37E38998}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTrades.Gateway", "src\MyTrades.Gateway\MyTrades.Gateway.csproj", "{3D4EFD0D-DBB2-46A7-8485-E785A800DF26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{F71E4779-3DD7-4B40-8F96-788E37E38998}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F71E4779-3DD7-4B40-8F96-788E37E38998}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F71E4779-3DD7-4B40-8F96-788E37E38998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D4EFD0D-DBB2-46A7-8485-E785A800DF26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D4EFD0D-DBB2-46A7-8485-E785A800DF26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D4EFD0D-DBB2-46A7-8485-E785A800DF26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D4EFD0D-DBB2-46A7-8485-E785A800DF26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

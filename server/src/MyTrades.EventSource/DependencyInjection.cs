@@ -2,7 +2,7 @@ using Marten;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MyTrades.Domain;
+namespace MyTrades.EventSource;
 
 public static class DependencyInjection
 {

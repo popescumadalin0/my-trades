@@ -1,6 +1,6 @@
 using MyTrades.Cache.Contracts;
 
-namespace MyTrades.Cache;
+namespace MyTrades.Cache.Models;
 
 public class CandleCache : IItem
 {
@@ -16,10 +16,8 @@ public class CandleCache : IItem
     public decimal HighestPrice { get; set; }
     public decimal LowestPrice { get; set; }
     public decimal ClosePrice { get; set; }
-
     public string GetCacheKey()
     {
         return Id;
-        
     }
 }

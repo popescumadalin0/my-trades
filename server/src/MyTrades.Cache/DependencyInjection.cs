@@ -6,7 +6,7 @@ namespace MyTrades.Cache;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddCacheServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddStackExchangeRedisCache(options =>
         {
@@ -14,7 +14,7 @@ public static class DependencyInjection
             //options.InstanceName = "SampleApp_"; // Optional prefix for cache keys
         });
 
-        services.AddScoped<IItemService, ItemService>();
+        services.AddScoped<ICacheService, CacheService>();
 
         return services;
     }

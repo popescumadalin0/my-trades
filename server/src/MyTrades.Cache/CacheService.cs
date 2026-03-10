@@ -5,13 +5,13 @@ using MyTrades.Cache.Contracts;
 
 namespace MyTrades.Cache;
 
-public class ItemService : IItemService
+public class CacheService : ICacheService
 {
     private readonly IDistributedCache _cache;
 
-    private ILogger<ItemService> _logger;
+    private ILogger<CacheService> _logger;
 
-    public ItemService(IDistributedCache cache, ILogger<ItemService> logger)
+    public CacheService(IDistributedCache cache, ILogger<CacheService> logger)
     {
         _cache = cache;
         _logger = logger;
