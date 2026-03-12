@@ -1,11 +1,9 @@
-using MyTrades.Cache.Contracts;
+namespace MyTrades.Domain.Market;
 
-namespace MyTrades.Cache.Models;
-
-public class CandleCache : IItem
+public class Candle : IEntity
 {
     public string Id { get; set; }
-    public string Symbol { get; set; }
+    public string SymbolId { get; set; }
     public DateTime Time { get; set; }
     public decimal Open { get; set; }
     public decimal High { get; set; }
@@ -16,8 +14,4 @@ public class CandleCache : IItem
     public decimal HighestPrice { get; set; }
     public decimal LowestPrice { get; set; }
     public decimal ClosePrice { get; set; }
-    public string GetCacheKey()
-    {
-        return Id;
-    }
 }

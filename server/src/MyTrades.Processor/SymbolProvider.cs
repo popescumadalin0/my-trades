@@ -1,5 +1,6 @@
-using MyTrades.Cache.Contracts;
-
+using MyTrades.Domain.Market;
+using MyTrades.Persistence;
+using MyTrades.Persistence.Contracts;
 
 namespace MyTrades.Processor;
 
@@ -10,16 +11,16 @@ public interface ISymbolProvider
 
 public class SymbolProvider : ISymbolProvider
 {
-    private readonly ICacheService _cacheService;
+    private readonly IEntityStore<Symbol> _cacheRepository;
 
-    public SymbolProvider(ICacheService cacheService)
+    public SymbolProvider(IEntityStore<Symbol> cacheRepository)
     {
-        _cacheService = cacheService;
+        _cacheRepository = cacheRepository;
     }
 
     public async Task<IList<string>> GetAllSymbolsAsync()
     {
-        var symbols = await _cacheService.GetItem<List<string>>("symbols");
+        var symbols = await _cacheRepository.GetItem<List<string>>("symbols");
 
         return symbols;
     }

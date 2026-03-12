@@ -1,11 +1,20 @@
+using MyTrades.Domain.Market;
+using MyTrades.Persistence;
+
 namespace MyTrades.Processor.BackgroundServices;
 
 public class MarketPollingService : BackgroundService
 {
-    private readonly IHttpClientFactory _httpFactory;
     private readonly ISymbolProvider _symbolProvider;
-    private readonly IR _repository;
+    private readonly IEnumerable<IEntityStore<Candle>> _stores;
     private readonly ILogger<MarketPollingService> _logger;
+
+    public MarketPollingService(IEnumerable<IEntityStore<Candle>> stores, ILogger<MarketPollingService> logger, ISymbolProvider symbolProvider, IHttpClientFactory httpFactory)
+    {
+        _stores = stores;
+        _logger = logger;
+        _symbolProvider = symbolProvider;
+    }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -27,18 +36,18 @@ public class MarketPollingService : BackgroundService
     {
         try
         {
-            var client = _httpFactory.CreateClient("MarketApi");
+            /*var client = _httpFactory.CreateClient("MarketApi");
 
             var response = await client.GetAsync(
                 $"api/candles?symbol={symbol}&interval=1m", ct);
 
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();*/
 
             var json = await response.Content.ReadAsStringAsync(ct);
 
             var candle = Parse(json);
 
-            await _repository.InsertIfNotExistsAsync(candle);
+            await _stores.StoreAsync(candle, ct);
 
             await CandleChannel.Channel.Writer.WriteAsync(candle, ct);
         }

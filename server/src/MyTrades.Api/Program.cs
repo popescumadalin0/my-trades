@@ -1,13 +1,10 @@
 using FastEndpoints;
 using Mapster;
-using MyTrades.Domain;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFastEndpoints();
-
-builder.Services.AddDomainServices(builder.Configuration);
 
 builder.Services.AddLogging(b =>
 {

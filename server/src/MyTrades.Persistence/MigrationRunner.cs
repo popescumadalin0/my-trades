@@ -1,9 +1,10 @@
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MyTrades.Domain;
 using Npgsql;
 
-namespace MyTrades.Domain;
+namespace MyTrades.Persistence;
 
 public class MigrationRunner
 {
@@ -27,7 +28,7 @@ public class MigrationRunner
                 "SELECT script_name FROM __migrations"))
             .ToHashSet();
 
-        var assembly = typeof(_DomainMarker).Assembly;
+        var assembly = typeof(DomainMarker).Assembly;
 
         var migrationFiles = assembly
             .GetManifestResourceNames()

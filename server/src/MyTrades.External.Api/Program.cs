@@ -30,31 +30,31 @@ namespace MyTrades.External.Api
 
     public static class MarketSimulator
     {
-        private static readonly ConcurrentDictionary<string, Candle> _candles = new();
-        private static readonly ConcurrentDictionary<string, decimal> _lastClose = new();
-        private static readonly Random _random = new();
+        private static readonly ConcurrentDictionary<string, Candle> Candles = new();
+        private static readonly ConcurrentDictionary<string, decimal> LastClose = new();
+        private static readonly Random Random = new();
 
         public static Candle GetCurrentCandle(string symbol, DateTime minuteKey)
         {
             var key = $"{symbol}_{minuteKey:yyyyMMddHHmm}";
 
-            return _candles.GetOrAdd(key, _ =>
+            return Candles.GetOrAdd(key, _ =>
             {
-                var previousClose = _lastClose.GetOrAdd(symbol, _ => 50000m);
+                var previousClose = LastClose.GetOrAdd(symbol, _ => 50000m);
 
                 var volatility = 0.002m; // 0.2% per minute
-                var drift = (decimal)(_random.NextDouble() - 0.5) * 0.001m; // mic trend
+                var drift = (decimal)(Random.NextDouble() - 0.5) * 0.001m; // mic trend
 
-                var changePercent = drift + (decimal)(_random.NextDouble() - 0.5) * volatility;
+                var changePercent = drift + (decimal)(Random.NextDouble() - 0.5) * volatility;
                 var close = previousClose * (1 + changePercent);
 
                 var high = Math.Max(previousClose, close) *
-                           (1 + (decimal)_random.NextDouble() * 0.001m);
+                           (1 + (decimal)Random.NextDouble() * 0.001m);
 
                 var low = Math.Min(previousClose, close) *
-                          (1 - (decimal)_random.NextDouble() * 0.001m);
+                          (1 - (decimal)Random.NextDouble() * 0.001m);
 
-                var volume = (decimal)(_random.NextDouble() * 100 + 10);
+                var volume = (decimal)(Random.NextDouble() * 100 + 10);
 
                 var candle = new Candle(
                     symbol,
@@ -66,7 +66,7 @@ namespace MyTrades.External.Api
                     decimal.Round(volume, 2)
                 );
 
-                _lastClose[symbol] = candle.Close;
+                LastClose[symbol] = candle.Close;
 
                 return candle;
             });

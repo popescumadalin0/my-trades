@@ -1,3 +1,3 @@
 namespace MyTrades.Domain;
 
-public class _DomainMarker;
+public class DomainMarker;

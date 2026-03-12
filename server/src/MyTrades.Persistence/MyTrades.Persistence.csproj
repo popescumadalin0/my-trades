@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <RootNamespace>MyTrades.Persistence</RootNamespace>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Dapper" Version="2.1.66"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0"/>
+        <PackageReference Include="Npgsql" Version="10.0.1"/>
+        <PackageReference Include="MessagePack" Version="3.1.4"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.3"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="Migrations\000_Init.sql"/>
+        <EmbeddedResource Include="Migrations\000_Init.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Migrations\001_AddIndexes.sql"/>
+        <EmbeddedResource Include="Migrations\001_AddIndexes.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\MyTrades.Domain\MyTrades.Domain.csproj"/>
+    </ItemGroup>
+</Project>
