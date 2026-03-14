@@ -1,13 +1,11 @@
 using Mapster;
 using MyTrades.Domain;
 using MyTrades.Persistence;
+using MyTrades.Processor;
+using MyTrades.Processor.BackgroundServices;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddPersistenceServices(builder.Configuration);
-
-builder.Services.AddCacheServices(builder.Configuration);
 
 builder.Services.AddLogging(b =>
 {
@@ -20,7 +18,7 @@ builder.Services.AddLogging(b =>
     b.AddSerilog(loggerConfiguration, dispose: true);
 });
 
-builder.Services.AddMapster();
+builder.Services.AddProcessorServices(builder.Configuration);
 
 var app = builder.Build();
 

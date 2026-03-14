@@ -13,6 +13,7 @@
     <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    <ProjectReference Include="..\MyTrades.Gateway\MyTrades.Gateway.csproj" />
     <ProjectReference Include="..\MyTrades.Persistence\MyTrades.Persistence.csproj" />
   </ItemGroup>
 </Project>

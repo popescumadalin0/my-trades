@@ -1,6 +1,6 @@
 using MyTrades.Domain;
 
-namespace MyTrades.Persistence;
+namespace MyTrades.Persistence.Contracts;
 
 public interface IEntityStore<TEntity> where TEntity : IEntity
 {

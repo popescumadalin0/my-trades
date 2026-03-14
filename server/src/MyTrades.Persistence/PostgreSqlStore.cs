@@ -13,11 +13,9 @@ public class PostgreSqlStore<TEntity> : IEntityStore<TEntity>
         _repository = repository;
     }
 
-    public async Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default)
+    public Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default)
     {
-        var entity = await _repository.GetByIdAsync(id, cancellationToken);
-
-        return entity;
+        return _repository.GetByIdAsync(id, cancellationToken);
     }
 
     public async Task StoreAsync(TEntity entity, CancellationToken cancellationToken = default)

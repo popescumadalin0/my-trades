@@ -13,17 +13,15 @@ public class RedisStore<TEntity> : IEntityStore<TEntity>
         _cacheRepository = cacheRepository;
     }
 
-    public async Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default)
+    public Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default)
     {
-        var entity = await _cacheRepository.GetItem(id, cancellationToken);
-
-        return entity;
+        return _cacheRepository.GetItem(id, cancellationToken);
     }
 
-    public async Task StoreAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public Task StoreAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         var cacheKey = entity.Id;
 
-        await _cacheRepository.SetItem(cacheKey, entity, cancellationToken);
+        return _cacheRepository.SetItem(cacheKey, entity, cancellationToken);
     }
 }

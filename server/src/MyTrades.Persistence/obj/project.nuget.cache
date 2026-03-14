@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "dgSpecHash": "30Z6aqTx24I=",
+  "success": false,
+  "projectFilePath": "/Users/madalinpopescu/RiderProjects/my-trades/server/src/MyTrades.Persistence/MyTrades.Persistence.csproj",
+  "expectedPackageFiles": [
+    "/Users/madalinpopescu/.nuget/packages/dapper/2.1.66/dapper.2.1.66.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/messagepack/3.1.4/messagepack.3.1.4.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/messagepack.annotations/3.1.4/messagepack.annotations.3.1.4.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/messagepackanalyzer/3.1.4/messagepackanalyzer.3.1.4.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/microsoft.extensions.caching.abstractions/10.0.3/microsoft.extensions.caching.abstractions.10.0.3.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/microsoft.extensions.caching.stackexchangeredis/10.0.3/microsoft.extensions.caching.stackexchangeredis.10.0.3.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/microsoft.extensions.configuration.abstractions/10.0.0/microsoft.extensions.configuration.abstractions.10.0.0.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.0/microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/microsoft.extensions.logging.abstractions/10.0.3/microsoft.extensions.logging.abstractions.10.0.3.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/microsoft.extensions.options/10.0.3/microsoft.extensions.options.10.0.3.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/microsoft.extensions.primitives/10.0.3/microsoft.extensions.primitives.10.0.3.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/microsoft.net.stringtools/17.11.4/microsoft.net.stringtools.17.11.4.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/npgsql/10.0.1/npgsql.10.0.1.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/pipelines.sockets.unofficial/2.2.8/pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "/Users/madalinpopescu/.nuget/packages/stackexchange.redis/2.7.27/stackexchange.redis.2.7.27.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: Microsoft.Extensions.DependencyInjection.Abstractions from 10.0.3 to 10.0.0. Reference the package directly from the project to select a different version. \n MyTrades.Persistence -> Npgsql 10.0.1 -> Microsoft.Extensions.Logging.Abstractions 10.0.3 -> Microsoft.Extensions.DependencyInjection.Abstractions (>= 10.0.3) \n MyTrades.Persistence -> Microsoft.Extensions.DependencyInjection.Abstractions (>= 10.0.0)",
+      "projectPath": "/Users/madalinpopescu/RiderProjects/my-trades/server/src/MyTrades.Persistence/MyTrades.Persistence.csproj",
+      "filePath": "/Users/madalinpopescu/RiderProjects/my-trades/server/src/MyTrades.Persistence/MyTrades.Persistence.csproj",
+      "libraryId": "Microsoft.Extensions.DependencyInjection.Abstractions",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}

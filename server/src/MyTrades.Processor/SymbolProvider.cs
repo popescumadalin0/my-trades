@@ -6,22 +6,22 @@ namespace MyTrades.Processor;
 
 public interface ISymbolProvider
 {
-    Task<IList<string>> GetAllSymbolsAsync();
+    Task<IEnumerable<string>> GetAllSymbolsAsync();
 }
 
 public class SymbolProvider : ISymbolProvider
 {
-    private readonly IEntityStore<Symbol> _cacheRepository;
+    private readonly IDbRepository<Symbol> _repository;
 
-    public SymbolProvider(IEntityStore<Symbol> cacheRepository)
+    public SymbolProvider(IDbRepository<Symbol> repository)
     {
-        _cacheRepository = cacheRepository;
+        _repository = repository;
     }
 
-    public async Task<IList<string>> GetAllSymbolsAsync()
+    public async Task<IEnumerable<string>> GetAllSymbolsAsync()
     {
-        var symbols = await _cacheRepository.GetItem<List<string>>("symbols");
+        var symbols = await _repository.GetAllAsync();
 
-        return symbols;
+        return symbols.Select(x=> x.Name).Distinct();
     }
 }

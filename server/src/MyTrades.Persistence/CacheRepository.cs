@@ -34,10 +34,10 @@ public class CacheRepository<TEntity> : ICacheRepository<TEntity>
         throw new KeyNotFoundException($"Item with key {key} not found in cache!");
     }
 
-    public async Task SetItem(string key, TEntity item, CancellationToken token = default)
+    public Task SetItem(string key, TEntity item, CancellationToken token = default)
     {
         var bytes = MessagePackSerializer.Serialize(item, MessagePack.Resolvers.ContractlessStandardResolver.Options);
 
-        await _cache.SetAsync(key, bytes, token: token);
+        return _cache.SetAsync(key, bytes, token: token);
     }
 }

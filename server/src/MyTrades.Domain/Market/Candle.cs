@@ -11,7 +11,7 @@ public class Candle : IEntity
     public decimal Close { get; set; }
     public decimal Volume { get; set; }
     public decimal OpenInterest { get; set; }
-    public decimal HighestPrice { get; set; }
+    public decimal HighestPrice { get; set; } 
     public decimal LowestPrice { get; set; }
     public decimal ClosePrice { get; set; }
 }

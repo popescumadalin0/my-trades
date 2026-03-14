@@ -4,7 +4,7 @@ using MyTrades.External.Api;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/api/candles", (string symbol = "BTCUSDT") =>
+app.MapGet("/api/candle", (string symbol = "BTCUSDT") =>
 {
     var now = DateTime.UtcNow;
     var minuteKey = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
