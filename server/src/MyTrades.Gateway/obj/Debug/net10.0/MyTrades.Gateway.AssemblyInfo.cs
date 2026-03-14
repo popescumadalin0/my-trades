@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyTrades.Gateway")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39bd97b7030fccb2b846034ce433051e2f3db0f3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd32d7ce22f0c40e0475a398b581d6e966c6af46")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyTrades.Gateway")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyTrades.Gateway")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

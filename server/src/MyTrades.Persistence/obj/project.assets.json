@@ -691,19 +691,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/madalinpopescu/.nuget/packages/": {}
+    "C:\\Users\\dizzy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/madalinpopescu/RiderProjects/my-trades/server/src/MyTrades.Persistence/MyTrades.Persistence.csproj",
+      "projectUniqueName": "C:\\Work\\my-trader\\server\\src\\MyTrades.Persistence\\MyTrades.Persistence.csproj",
       "projectName": "MyTrades.Persistence",
-      "projectPath": "/Users/madalinpopescu/RiderProjects/my-trades/server/src/MyTrades.Persistence/MyTrades.Persistence.csproj",
-      "packagesPath": "/Users/madalinpopescu/.nuget/packages/",
-      "outputPath": "/Users/madalinpopescu/RiderProjects/my-trades/server/src/MyTrades.Persistence/obj/",
+      "projectPath": "C:\\Work\\my-trader\\server\\src\\MyTrades.Persistence\\MyTrades.Persistence.csproj",
+      "packagesPath": "C:\\Users\\dizzy\\.nuget\\packages\\",
+      "outputPath": "C:\\Work\\my-trader\\server\\src\\MyTrades.Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/madalinpopescu/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\dizzy\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -715,8 +715,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/Users/madalinpopescu/RiderProjects/my-trades/server/src/MyTrades.Domain/MyTrades.Domain.csproj": {
-              "projectPath": "/Users/madalinpopescu/RiderProjects/my-trades/server/src/MyTrades.Domain/MyTrades.Domain.csproj"
+            "C:\\Work\\my-trader\\server\\src\\MyTrades.Domain\\MyTrades.Domain.csproj": {
+              "projectPath": "C:\\Work\\my-trader\\server\\src\\MyTrades.Domain\\MyTrades.Domain.csproj"
             }
           }
         }
@@ -778,7 +778,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Users\\dizzy\\.dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1060,7 +1060,7 @@
     {
       "code": "NU1605",
       "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.Extensions.DependencyInjection.Abstractions from 10.0.3 to 10.0.0. Reference the package directly from the project to select a different version. \n MyTrades.Persistence -> Npgsql 10.0.1 -> Microsoft.Extensions.Logging.Abstractions 10.0.3 -> Microsoft.Extensions.DependencyInjection.Abstractions (>= 10.0.3) \n MyTrades.Persistence -> Microsoft.Extensions.DependencyInjection.Abstractions (>= 10.0.0)",
+      "message": "Warning As Error: Detected package downgrade: Microsoft.Extensions.DependencyInjection.Abstractions from 10.0.3 to 10.0.0. Reference the package directly from the project to select a different version. \r\n MyTrades.Persistence -> Npgsql 10.0.1 -> Microsoft.Extensions.Logging.Abstractions 10.0.3 -> Microsoft.Extensions.DependencyInjection.Abstractions (>= 10.0.3) \r\n MyTrades.Persistence -> Microsoft.Extensions.DependencyInjection.Abstractions (>= 10.0.0)",
       "libraryId": "Microsoft.Extensions.DependencyInjection.Abstractions",
       "targetGraphs": [
         "net10.0"
