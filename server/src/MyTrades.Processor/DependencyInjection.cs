@@ -1,6 +1,7 @@
 using Mapster;
 using MyTrades.Persistence;
 using MyTrades.Processor.BackgroundServices;
+using MyTrades.Processor.Profiles;
 
 namespace MyTrades.Processor;
 
@@ -11,6 +12,8 @@ public static class DependencyInjection
         services.AddPersistenceServices(config);
         
         services.AddMapster();
+
+        services.RegisterMapsterConfiguration();
 
         services.AddHostedService<MarketPollingService>();
 

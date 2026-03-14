@@ -1,3 +1,4 @@
+using MapsterMapper;
 using MyTrades.Domain.Market;
 using MyTrades.Gateway;
 using MyTrades.Persistence;
@@ -11,17 +12,20 @@ public class MarketPollingService : BackgroundService
     private readonly ICandleGatewayService _candleGatewayService;
     private readonly IEnumerable<IEntityStore<Candle>> _stores;
     private readonly ILogger<MarketPollingService> _logger;
+    
+    private readonly IMapper _mapper;
 
     public MarketPollingService(
         IEnumerable<IEntityStore<Candle>> stores,
         ILogger<MarketPollingService> logger,
         ISymbolProvider symbolProvider,
-        ICandleGatewayService candleGatewayService)
+        ICandleGatewayService candleGatewayService, IMapper mapper)
     {
         _stores = stores;
         _logger = logger;
         _symbolProvider = symbolProvider;
         _candleGatewayService = candleGatewayService;
+        _mapper = mapper;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -48,7 +52,8 @@ public class MarketPollingService : BackgroundService
 
             foreach (var store in _stores)
             {
-                await store.StoreAsync(candle, ct);
+                var candleEntity = _mapper.Map<Candle>(candle);
+                await store.StoreAsync(candleEntity, ct);
             }
             //todo
             //await CandleChannel.Channel.Writer.WriteAsync(candle, ct);
