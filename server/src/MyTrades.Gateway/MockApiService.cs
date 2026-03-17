@@ -6,7 +6,7 @@ namespace MyTrades.Gateway;
 
 public interface ICandleGatewayService
 {
-    Task<CandleResponse> GetCandlesAsync(string symbol);
+    Task<CandleResponse> GetCandlesAsync(string symbol, CancellationToken cancellationToken = default);
 }
 
 public class CandleGatewayService : ICandleGatewayService
@@ -18,9 +18,9 @@ public class CandleGatewayService : ICandleGatewayService
         _mockApiClient = mockApiClient;
     }
 
-    public async Task<CandleResponse> GetCandlesAsync(string symbol)
+    public async Task<CandleResponse> GetCandlesAsync(string symbol, CancellationToken cancellationToken = default)
     {
-        var response = await _mockApiClient.GetCandleAsync(symbol);
+        var response = await _mockApiClient.GetCandleAsync(symbol, cancellationToken);
 
         if (response.Success)
         {

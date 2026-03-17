@@ -3,19 +3,19 @@ using MyTrades.Persistence.Contracts;
 
 namespace MyTrades.Persistence;
 
-public class PostgreSqlStore<TEntity> : IEntityStore<TEntity>
+public class PostgresStore<TEntity> : IStore<TEntity>
     where TEntity : IEntity
 {
-    private readonly IDbRepository<TEntity> _repository;
+    private readonly IRepositoryDriver<TEntity> _repositoryDriver;
 
-    public PostgreSqlStore(IDbRepository<TEntity> repository)
+    public PostgresStore(IRepositoryDriver<TEntity> repositoryDriver)
     {
-        _repository = repository;
+        _repositoryDriver = repositoryDriver;
     }
 
     public Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default)
     {
-        return _repository.GetByIdAsync(id, cancellationToken);
+        return _repositoryDriver.GetByIdAsync(id, cancellationToken);
     }
 
     public async Task StoreAsync(TEntity entity, CancellationToken cancellationToken = default)
@@ -24,11 +24,11 @@ public class PostgreSqlStore<TEntity> : IEntityStore<TEntity>
 
         if (existingEntity != null)
         {
-            await _repository.UpdateAsync(entity, cancellationToken);
+            await _repositoryDriver.UpdateAsync(entity, cancellationToken);
         }
         else
         {
-            await _repository.InsertAsync(entity, cancellationToken);
+            await _repositoryDriver.InsertAsync(entity, cancellationToken);
         }
     }
 }

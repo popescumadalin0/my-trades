@@ -6,14 +6,14 @@ using MyTrades.Persistence.Contracts;
 
 namespace MyTrades.Persistence;
 
-public class CacheRepository<TEntity> : ICacheRepository<TEntity>
+public class CacheDriver<TEntity> : ICacheRepository<TEntity>
     where TEntity : IEntity
 {
     private readonly IDistributedCache _cache;
 
-    private readonly ILogger<CacheRepository<TEntity>> _logger;
+    private readonly ILogger<CacheDriver<TEntity>> _logger;
 
-    public CacheRepository(IDistributedCache cache, ILogger<CacheRepository<TEntity>> logger)
+    public CacheDriver(IDistributedCache cache, ILogger<CacheDriver<TEntity>> logger)
     {
         _cache = cache;
         _logger = logger;
@@ -24,7 +24,7 @@ public class CacheRepository<TEntity> : ICacheRepository<TEntity>
         string cacheKey = $"Item_{key}";
 
         var bytes = await _cache.GetAsync(cacheKey, token);
-
+        
         if (bytes != null)
         {
             _logger.LogDebug("✅ Item retrieved from cache!");

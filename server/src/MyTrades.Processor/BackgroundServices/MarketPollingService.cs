@@ -1,31 +1,34 @@
 using MapsterMapper;
 using MyTrades.Domain.Market;
 using MyTrades.Gateway;
-using MyTrades.Persistence;
 using MyTrades.Persistence.Contracts;
+using MyTrades.Processor.Contracts;
 
 namespace MyTrades.Processor.BackgroundServices;
 
+//todo: create another one that syncs the db with the lookup table
+
 public class MarketPollingService : BackgroundService
 {
-    private readonly ISymbolProvider _symbolProvider;
     private readonly ICandleGatewayService _candleGatewayService;
-    private readonly IEnumerable<IEntityStore<Candle>> _stores;
+    private readonly IEnumerable<IStore<Candle>> _stores;
     private readonly ILogger<MarketPollingService> _logger;
-    
+    private readonly ISymbolLookup _symbolLookup;
+
     private readonly IMapper _mapper;
 
     public MarketPollingService(
-        IEnumerable<IEntityStore<Candle>> stores,
+        IEnumerable<IStore<Candle>> stores,
         ILogger<MarketPollingService> logger,
-        ISymbolProvider symbolProvider,
-        ICandleGatewayService candleGatewayService, IMapper mapper)
+        ICandleGatewayService candleGatewayService,
+        IMapper mapper,
+        ISymbolLookup symbolLookup)
     {
         _stores = stores;
         _logger = logger;
-        _symbolProvider = symbolProvider;
         _candleGatewayService = candleGatewayService;
         _mapper = mapper;
+        _symbolLookup = symbolLookup;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -34,7 +37,7 @@ public class MarketPollingService : BackgroundService
 
         while (!stoppingToken.IsCancellationRequested)
         {
-            var symbols = await _symbolProvider.GetAllSymbolsAsync();
+            var symbols = await _symbolLookup.GetAllAsync();
 
             var tasks = symbols.Select(s => FetchAndProcess(s, stoppingToken));
 
@@ -44,18 +47,21 @@ public class MarketPollingService : BackgroundService
         }
     }
 
-    private async Task FetchAndProcess(string symbol, CancellationToken ct)
+    private async Task FetchAndProcess(NameIdentifier symbol, CancellationToken ct)
     {
         try
         {
-            var candle = await _candleGatewayService.GetCandlesAsync(symbol);
+            var candle = await _candleGatewayService.GetCandlesAsync(symbol.Name, ct);
+
+            var candleEntity = _mapper.Map<Candle>(candle);
+            
+            candleEntity.SymbolId = symbol.Id;
 
             foreach (var store in _stores)
             {
-                var candleEntity = _mapper.Map<Candle>(candle);
                 await store.StoreAsync(candleEntity, ct);
             }
-            //todo
+            //todo: call mediator
             //await CandleChannel.Channel.Writer.WriteAsync(candle, ct);
         }
         catch (Exception ex)

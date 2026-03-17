@@ -5,12 +5,12 @@ using Npgsql;
 
 namespace MyTrades.Persistence;
 
-public class PostgresDbRepository<TEntity> : IDbRepository<TEntity>
+public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
 {
     private readonly IDbConnection _connection;
     private readonly string _tableName;
 
-    public PostgresDbRepository(NpgsqlConnection connection)
+    public PostgresRepositoryDriver(NpgsqlConnection connection)
     {
         _connection = connection;
         _tableName = typeof(TEntity).Name.ToLower();

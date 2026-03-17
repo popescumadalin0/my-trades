@@ -1,8 +1,5 @@
-using Mapster;
-using MyTrades.Domain;
 using MyTrades.Persistence;
 using MyTrades.Processor;
-using MyTrades.Processor.BackgroundServices;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

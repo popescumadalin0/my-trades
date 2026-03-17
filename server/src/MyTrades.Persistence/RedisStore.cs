@@ -3,7 +3,7 @@ using MyTrades.Persistence.Contracts;
 
 namespace MyTrades.Persistence;
 
-public class RedisStore<TEntity> : IEntityStore<TEntity>
+public class RedisStore<TEntity> : IStore<TEntity>
     where TEntity : IEntity
 {
     private readonly ICacheRepository<TEntity> _cacheRepository;

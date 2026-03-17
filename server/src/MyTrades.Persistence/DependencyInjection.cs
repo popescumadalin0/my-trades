@@ -17,15 +17,15 @@ public static class DependencyInjection
             //options.InstanceName = "SampleApp_"; // Optional prefix for cache keys
         });
 
-        services.AddScoped<IDbRepository<Candle>, PostgresDbRepository<Candle>>();
-        services.AddScoped<ICacheRepository<Candle>, CacheRepository<Candle>>();
-        services.AddScoped<IEntityStore<Candle>, PostgreSqlStore<Candle>>();
-        services.AddScoped<IEntityStore<Candle>, RedisStore<Candle>>();
+        services.AddScoped<IRepositoryDriver<Candle>, PostgresRepositoryDriver<Candle>>();
+        services.AddScoped<IStore<Candle>, PostgresStore<Candle>>();
+        services.AddScoped<IRepositoryDriver<Symbol>, PostgresRepositoryDriver<Symbol>>();
+        services.AddScoped<IStore<Symbol>, PostgresStore<Symbol>>();
+
+        services.AddScoped<ICacheRepository<Candle>, CacheDriver<Candle>>();
+        services.AddScoped<IStore<Candle>, RedisStore<Candle>>();
         
-        services.AddScoped<IDbRepository<Symbol>, PostgresDbRepository<Symbol>>();
-        services.AddScoped<ICacheRepository<Symbol>, CacheRepository<Symbol>>();
-        services.AddScoped<IEntityStore<Symbol>, PostgreSqlStore<Symbol>>();
-        services.AddScoped<IEntityStore<Symbol>, RedisStore<Symbol>>();
+        services.AddSingleton<StoreFactory>();
 
         return services;
     }
