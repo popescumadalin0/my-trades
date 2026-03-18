@@ -6,8 +6,6 @@ using MyTrades.Processor.Contracts;
 
 namespace MyTrades.Processor.BackgroundServices;
 
-//todo: create another one that syncs the db with the lookup table
-
 public class MarketPollingService : BackgroundService
 {
     private readonly ICandleGatewayService _candleGatewayService;
@@ -33,10 +31,14 @@ public class MarketPollingService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        _logger.LogInformation($"Started {nameof(MarketPollingService)}");
+
         await AlignToNextMinute(stoppingToken);
 
         while (!stoppingToken.IsCancellationRequested)
         {
+            _logger.LogDebug($"Fetching candles {nameof(MarketPollingService)}");
+
             var symbols = await _symbolLookup.GetAllAsync();
 
             var tasks = symbols.Select(s => FetchAndProcess(s, stoppingToken));
@@ -54,7 +56,7 @@ public class MarketPollingService : BackgroundService
             var candle = await _candleGatewayService.GetCandlesAsync(symbol.Name, ct);
 
             var candleEntity = _mapper.Map<Candle>(candle);
-            
+
             candleEntity.SymbolId = symbol.Id;
 
             foreach (var store in _stores)

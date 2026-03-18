@@ -8,5 +8,6 @@
 
     <ItemGroup>
         <PackageReference Include="Marten" Version="8.21.0"/>
+        <PackageReference Include="Scrutor" Version="7.0.0" />
     </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 using Mapster;
+using MyTrades.EventSource;
 using MyTrades.Persistence;
 using MyTrades.Processor.BackgroundServices;
 using MyTrades.Processor.Contracts;
@@ -17,8 +18,12 @@ public static class DependencyInjection
         services.RegisterMapsterConfiguration();
 
         services.AddHostedService<MarketPollingService>();
+
+        services.AddHostedService<SymbolRefresher>();
         
         services.AddSingleton<ISymbolLookup, SymbolLookup>();
+
+        services.AddEventSourceServices(config);
 
         return services;
     }

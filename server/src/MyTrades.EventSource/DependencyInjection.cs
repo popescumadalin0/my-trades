@@ -1,6 +1,8 @@
+using JasperFx.Core.IoC;
 using Marten;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyTrades.EventSource.BackgroundService;
 
 namespace MyTrades.EventSource;
 
@@ -27,6 +29,22 @@ public static class DependencyInjection
 // string to Marten
             .UseNpgsqlDataSource();
 
+        services.AddHostedService<EventDispatcher>();
+
+        services.AddScoped<IEventBus, InMemoryEventBus>();
+
+        services.RegisterEventHandlers();
+
         return services;
+    }
+
+    private static void RegisterEventHandlers(this IServiceCollection services)
+    {
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        services.Scan(scan => scan
+            .FromAssemblies(assemblies)
+            .AddClasses(c => c.AssignableTo(typeof(IEventHandler<>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
     }
 }
