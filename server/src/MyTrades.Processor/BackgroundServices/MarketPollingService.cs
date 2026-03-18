@@ -7,6 +7,8 @@ using MapsterMapper;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyTrades.Domain.Market;
+using MyTrades.EventSource;
+using MyTrades.EventSource.Events;
 using MyTrades.Gateway;
 using MyTrades.Persistence.Contracts;
 using MyTrades.Processor.Contracts;
@@ -19,6 +21,7 @@ public class MarketPollingService : BackgroundService
     private readonly IEnumerable<IStore<Candle>> _stores;
     private readonly ILogger<MarketPollingService> _logger;
     private readonly ISymbolLookup _symbolLookup;
+    private readonly IEventBus _eventBus;
 
     private readonly IMapper _mapper;
 
@@ -27,13 +30,14 @@ public class MarketPollingService : BackgroundService
         ILogger<MarketPollingService> logger,
         ICandleGatewayService candleGatewayService,
         IMapper mapper,
-        ISymbolLookup symbolLookup)
+        ISymbolLookup symbolLookup, IEventBus eventBus)
     {
         _stores = stores;
         _logger = logger;
         _candleGatewayService = candleGatewayService;
         _mapper = mapper;
         _symbolLookup = symbolLookup;
+        _eventBus = eventBus;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -70,8 +74,8 @@ public class MarketPollingService : BackgroundService
             {
                 await store.StoreAsync(candleEntity, ct);
             }
-            //todo: call mediator
-            //await CandleChannel.Channel.Writer.WriteAsync(candle, ct);
+
+            await _eventBus.PublishAsync(new CandleCreated());
         }
         catch (Exception ex)
         {

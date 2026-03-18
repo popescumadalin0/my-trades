@@ -1,11 +1,8 @@
-using System.Threading;
-using System.Threading.Tasks;
 using MyTrades.EventSource;
+using MyTrades.EventSource.Events;
 using MyTrades.Processor.Contracts;
 
 namespace MyTrades.Processor.Events;
-
-public record SymbolUpdated(string Id, string Name) : IEvent;
 
 public class SymbolUpdatedHandler : IEventHandler<SymbolUpdated>
 {
