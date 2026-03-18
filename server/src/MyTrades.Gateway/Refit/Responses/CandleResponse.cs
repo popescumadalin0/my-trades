@@ -1,3 +1,5 @@
+using System;
+
 namespace MyTrades.Gateway.Refit.Responses;
 
 public class CandleResponse

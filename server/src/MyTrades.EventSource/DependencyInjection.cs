@@ -1,3 +1,4 @@
+using System;
 using JasperFx.Core.IoC;
 using Marten;
 using Microsoft.Extensions.Configuration;

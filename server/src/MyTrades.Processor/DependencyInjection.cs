@@ -1,4 +1,6 @@
 using Mapster;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using MyTrades.EventSource;
 using MyTrades.Persistence;
 using MyTrades.Processor.BackgroundServices;

@@ -1,5 +1,6 @@
 using System.Reflection;
 using Mapster;
+using Microsoft.Extensions.DependencyInjection;
 using MyTrades.Domain.Market;
 using MyTrades.Gateway.Refit.Responses;
 

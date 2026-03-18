@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using MyTrades.Domain;
 using MyTrades.Persistence.Contracts;

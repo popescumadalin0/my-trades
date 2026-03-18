@@ -1,4 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using MapsterMapper;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MyTrades.Domain.Market;
 using MyTrades.Gateway;
 using MyTrades.Persistence.Contracts;

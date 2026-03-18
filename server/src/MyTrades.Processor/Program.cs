@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using MyTrades.Persistence;
 using MyTrades.Processor;
 using Serilog;

@@ -1,3 +1,5 @@
+using System;
+
 namespace MyTrades.Domain.Market;
 
 public class Candle : IEntity

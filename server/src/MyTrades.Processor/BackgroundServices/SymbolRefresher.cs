@@ -1,3 +1,7 @@
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MyTrades.Domain.Market;
 using MyTrades.Persistence.Contracts;
 using MyTrades.Processor.Contracts;

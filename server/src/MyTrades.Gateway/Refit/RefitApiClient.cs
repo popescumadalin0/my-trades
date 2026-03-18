@@ -1,4 +1,6 @@
+using System;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace MyTrades.Gateway.Refit;
 

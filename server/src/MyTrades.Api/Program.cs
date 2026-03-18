@@ -1,5 +1,7 @@
 using FastEndpoints;
 using Mapster;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
