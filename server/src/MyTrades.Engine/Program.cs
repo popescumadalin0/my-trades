@@ -1,7 +1,9 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+using Mapster;
+using MyTrades.EventSource;
+using MyTrades.Indicator;
 using MyTrades.Persistence;
 using MyTrades.Processor;
+using MyTrades.Strategy;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +19,14 @@ builder.Services.AddLogging(b =>
     b.AddSerilog(loggerConfiguration, dispose: true);
 });
 
-builder.Services.AddProcessorServices(builder.Configuration);
+builder.Services.RegisterProcessor(builder.Configuration);
+builder.Services.RegisterIndicators(builder.Configuration);
+builder.Services.RegisterStrategies(builder.Configuration);
+
+builder.Services.AddMapster();
+
+builder.Services.AddEventSourceServices(builder.Configuration);
+builder.Services.AddPersistenceServices(builder.Configuration);
 
 var app = builder.Build();
 

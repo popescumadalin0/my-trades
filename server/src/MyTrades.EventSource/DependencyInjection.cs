@@ -32,7 +32,7 @@ public static class DependencyInjection
 
         services.AddHostedService<EventDispatcher>();
 
-        services.AddScoped<IEventBus, InMemoryEventBus>();
+        services.AddTransient<IEventBus, InMemoryEventBus>();
 
         services.RegisterEventHandlers();
 

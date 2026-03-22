@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <RootNamespace>MyTrades.Processor</RootNamespace>
+    <RootNamespace>MyTrades.Strategy</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -14,7 +14,6 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <ProjectReference Include="..\MyTrades.EventSource\MyTrades.EventSource.csproj" />
-    <ProjectReference Include="..\MyTrades.Gateway\MyTrades.Gateway.csproj" />
     <ProjectReference Include="..\MyTrades.Persistence\MyTrades.Persistence.csproj" />
   </ItemGroup>
 </Project>

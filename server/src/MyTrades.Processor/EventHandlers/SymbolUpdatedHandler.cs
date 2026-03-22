@@ -2,7 +2,7 @@ using MyTrades.EventSource;
 using MyTrades.EventSource.Events;
 using MyTrades.Processor.Contracts;
 
-namespace MyTrades.Processor.Events;
+namespace MyTrades.Processor.EventHandlers;
 
 public class SymbolUpdatedHandler : IEventHandler<SymbolUpdated>
 {

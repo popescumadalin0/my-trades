@@ -17,11 +17,12 @@ public class InMemoryEventBus : IEventBus
 
     public InMemoryEventBus()
     {
-        _channel = Channel.CreateUnbounded<IEvent>(
-            new UnboundedChannelOptions
+        _channel = Channel.CreateBounded<IEvent>(
+            new BoundedChannelOptions(1000)
             {
                 SingleReader = false,
-                SingleWriter = false
+                SingleWriter = false,
+                FullMode = BoundedChannelFullMode.Wait
             });
     }
 

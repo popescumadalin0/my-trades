@@ -66,6 +66,10 @@ public class MarketPollingService : BackgroundService
         {
             var candle = await _candleGatewayService.GetCandlesAsync(symbol.Name, ct);
 
+            var @event = _mapper.Map<CandleCreated>(candle);
+
+            await _eventBus.PublishAsync(@event);
+
             var candleEntity = _mapper.Map<Candle>(candle);
 
             candleEntity.SymbolId = symbol.Id;
@@ -74,8 +78,6 @@ public class MarketPollingService : BackgroundService
             {
                 await store.StoreAsync(candleEntity, ct);
             }
-
-            await _eventBus.PublishAsync(new CandleCreated());
         }
         catch (Exception ex)
         {
