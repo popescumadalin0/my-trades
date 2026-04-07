@@ -17,6 +17,8 @@ public static class DependencyInjection
             //options.InstanceName = "SampleApp_"; // Optional prefix for cache keys
         });
 
+        services.AddScoped<DapperDbContext>(_ => new DapperDbContext(config.GetConnectionString("DefaultConnection")!));
+
         services.AddScoped<IRepositoryDriver<Candle>, PostgresRepositoryDriver<Candle>>();
         services.AddScoped<IStore<Candle>, PostgresStore<Candle>>();
         services.AddScoped<IRepositoryDriver<Symbol>, PostgresRepositoryDriver<Symbol>>();
@@ -24,8 +26,8 @@ public static class DependencyInjection
 
         services.AddScoped<ICacheRepository<Candle>, CacheDriver<Candle>>();
         services.AddScoped<IStore<Candle>, RedisStore<Candle>>();
-        
-        services.AddSingleton<StoreFactory>();
+
+        services.AddScoped<StoreFactory>();
 
         return services;
     }

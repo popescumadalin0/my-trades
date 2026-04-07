@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyTrades.Domain.Market;
@@ -10,26 +11,28 @@ namespace MyTrades.Processor.BackgroundServices;
 
 public class SymbolRefresher : BackgroundService
 {
-    private readonly IRepositoryDriver<Symbol> _symbolRepository;
-    private readonly ILogger<SymbolRefresher> _logger;
-    private readonly ISymbolLookup _symbolLookup;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public SymbolRefresher(IRepositoryDriver<Symbol> symbolRepository, ISymbolLookup symbolLookup,
-        ILogger<SymbolRefresher> logger)
+    public SymbolRefresher(IServiceScopeFactory scopeFactory)
     {
-        _symbolRepository = symbolRepository;
-        _symbolLookup = symbolLookup;
-        _logger = logger;
+        _scopeFactory = scopeFactory;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation($"Started {nameof(SymbolRefresher)}");
-        var symbols = await _symbolRepository.GetAllAsync(stoppingToken);
+        using var scope = _scopeFactory.CreateScope();
 
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<SymbolRefresher>>();
+        logger.LogInformation($"Started {nameof(SymbolRefresher)}");
+
+        var symbolRepository = scope.ServiceProvider.GetRequiredService<IRepositoryDriver<Symbol>>();
+        
+        var symbols = await symbolRepository.GetAllAsync(stoppingToken);
+
+        var symbolLookup = scope.ServiceProvider.GetRequiredService<ISymbolLookup>();
         foreach (var symbol in symbols)
         {
-            await _symbolLookup.StoreSymbolNameAsync(new NameIdentifier(symbol.Name, symbol.Id));
+            await symbolLookup.StoreSymbolNameAsync(new NameIdentifier(symbol.Name, symbol.Id));
         }
     }
 }

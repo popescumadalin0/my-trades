@@ -1,46 +1,46 @@
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using MyTrades.Persistence.Contracts;
-using Npgsql;
 
 namespace MyTrades.Persistence;
 
 public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
 {
-    private readonly IDbConnection _connection;
+    private readonly DapperDbContext _dbContext;
     private readonly string _tableName;
 
-    public PostgresRepositoryDriver(NpgsqlConnection connection)
+    public PostgresRepositoryDriver(DapperDbContext dbContext)
     {
-        _connection = connection;
+        _dbContext = dbContext;
         _tableName = typeof(TEntity).Name.ToLower();
     }
 
-    public Task<TEntity> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<TEntity> GetByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         var sql = $"SELECT * FROM {_tableName} WHERE id = @Id";
 
-        return _connection.QuerySingleOrDefaultAsync<TEntity>(
+        using var connection = _dbContext.GetConnection();
+        return await connection.QuerySingleOrDefaultAsync<TEntity>(
             new CommandDefinition(sql, new { Id = id }, cancellationToken: cancellationToken)
         );
     }
 
-    public Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var sql = $"SELECT * FROM {_tableName}";
 
-        var result = _connection.QueryAsync<TEntity>(
+        using var connection = _dbContext.GetConnection();
+        var result = await connection.QueryAsync<TEntity>(
             new CommandDefinition(sql, cancellationToken: cancellationToken)
         );
 
         return result;
     }
 
-    public Task InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public async Task InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         var properties = typeof(TEntity).GetProperties();
 
@@ -49,12 +49,13 @@ public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
 
         var sql = $"INSERT INTO {_tableName} ({columns}) VALUES ({values})";
 
-        return _connection.ExecuteAsync(
+        using var connection = _dbContext.GetConnection();
+        await connection.ExecuteAsync(
             new CommandDefinition(sql, entity, cancellationToken: cancellationToken)
         );
     }
 
-    public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         var properties = typeof(TEntity).GetProperties()
             .Where(p => p.Name != "Id");
@@ -63,16 +64,18 @@ public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
 
         var sql = $"UPDATE {_tableName} SET {setClause} WHERE id = @Id";
 
-        return _connection.ExecuteAsync(
+        using var connection = _dbContext.GetConnection();
+        await connection.ExecuteAsync(
             new CommandDefinition(sql, entity, cancellationToken: cancellationToken)
         );
     }
 
-    public Task DeleteAsync(string id, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(string id, CancellationToken cancellationToken = default)
     {
         var sql = $"DELETE FROM {_tableName} WHERE id = @Id";
 
-        return _connection.ExecuteAsync(
+        using var connection = _dbContext.GetConnection();
+        await connection.ExecuteAsync(
             new CommandDefinition(sql, new { Id = id }, cancellationToken: cancellationToken)
         );
     }

@@ -12,8 +12,7 @@ public static class DependencyInjection
     {
         services.AddMockApi(config);
 
-        services.AddSingleton<ICandleGatewayService, CandleGatewayService>();
-
+        services.AddScoped<ICandleGatewayService, CandleGatewayService>();
 
         return services;
     }

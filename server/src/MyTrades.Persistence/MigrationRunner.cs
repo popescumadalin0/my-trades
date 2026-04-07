@@ -1,3 +1,4 @@
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,19 +12,18 @@ namespace MyTrades.Persistence;
 
 public class MigrationRunner
 {
-    private readonly string _connectionString;
+    private readonly DapperDbContext _dbContext;
     private readonly ILogger<MigrationRunner> _logger;
 
-    public MigrationRunner(IConfiguration configuration, ILogger<MigrationRunner> logger)
+    public MigrationRunner(ILogger<MigrationRunner> logger, DapperDbContext dbContext)
     {
-        _connectionString = configuration.GetConnectionString("DefaultConnection")!;
         _logger = logger;
+        _dbContext = dbContext;
     }
 
     public async Task RunAsync()
     {
-        await using var connection = new NpgsqlConnection(_connectionString);
-        await connection.OpenAsync();
+        using var connection = _dbContext.GetConnection();
 
         await EnsureMigrationsTableExists(connection);
 
@@ -36,8 +36,7 @@ public class MigrationRunner
         var migrationFiles = assembly
             .GetManifestResourceNames()
             .Where(x => x.Contains("Migrations") && x.EndsWith(".sql"))
-            .OrderBy(x => x)
-            .ToList();
+            .OrderBy(x => x);
 
         foreach (var resourceName in migrationFiles)
         {
@@ -48,33 +47,25 @@ public class MigrationRunner
 
             _logger.LogInformation($"Running migration: {scriptName}");
 
-            using var stream = assembly.GetManifestResourceStream(resourceName)!;
+            await using var stream = assembly.GetManifestResourceStream(resourceName)!;
             using var reader = new StreamReader(stream);
 
             var sql = await reader.ReadToEndAsync();
 
-            await using var transaction = await connection.BeginTransactionAsync();
+            using var transaction = connection.BeginTransaction();
 
-            try
-            {
-                await connection.ExecuteAsync(sql, transaction: transaction);
+            await connection.ExecuteAsync(sql, transaction: transaction);
 
-                await connection.ExecuteAsync(
-                    "INSERT INTO __migrations (script_name) VALUES (@Name)",
-                    new { Name = scriptName },
-                    transaction);
+            await connection.ExecuteAsync(
+                "INSERT INTO __migrations (script_name) VALUES (@Name)",
+                new { Name = scriptName },
+                transaction);
 
-                await transaction.CommitAsync();
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
+            transaction.Commit();
         }
     }
 
-    private static async Task EnsureMigrationsTableExists(NpgsqlConnection connection)
+    private static async Task EnsureMigrationsTableExists(IDbConnection connection)
     {
         var sql = @"
             CREATE TABLE IF NOT EXISTS __migrations (

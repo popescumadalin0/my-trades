@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MapsterMapper;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyTrades.Domain.Market;
@@ -17,44 +18,33 @@ namespace MyTrades.Processor.BackgroundServices;
 
 public class MarketPollingService : BackgroundService
 {
-    private readonly ICandleGatewayService _candleGatewayService;
-    private readonly IEnumerable<IStore<Candle>> _stores;
-    private readonly ILogger<MarketPollingService> _logger;
-    private readonly ISymbolLookup _symbolLookup;
-    private readonly IEventBus _eventBus;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    private readonly IMapper _mapper;
-
-    public MarketPollingService(
-        IEnumerable<IStore<Candle>> stores,
-        ILogger<MarketPollingService> logger,
-        ICandleGatewayService candleGatewayService,
-        IMapper mapper,
-        ISymbolLookup symbolLookup, IEventBus eventBus)
+    public MarketPollingService(IServiceScopeFactory scopeFactory)
     {
-        _stores = stores;
-        _logger = logger;
-        _candleGatewayService = candleGatewayService;
-        _mapper = mapper;
-        _symbolLookup = symbolLookup;
-        _eventBus = eventBus;
+        _scopeFactory = scopeFactory;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation($"Started {nameof(MarketPollingService)}");
-
         await AlignToNextMinute(stoppingToken);
 
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogDebug($"Fetching candles {nameof(MarketPollingService)}");
+            using var scope = _scopeFactory.CreateScope();
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<MarketPollingService>>();
+            var symbolLookup = scope.ServiceProvider.GetRequiredService<ISymbolLookup>();
 
-            var symbols = await _symbolLookup.GetAllAsync();
+            logger.LogInformation($"Started {nameof(MarketPollingService)}");
+
+            logger.LogDebug($"Fetching candles {nameof(MarketPollingService)}");
+
+            var symbols = await symbolLookup.GetAllAsync();
 
             var tasks = symbols.Select(s => FetchAndProcess(s, stoppingToken));
 
             await Task.WhenAll(tasks);
+
 
             await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
@@ -62,26 +52,33 @@ public class MarketPollingService : BackgroundService
 
     private async Task FetchAndProcess(NameIdentifier symbol, CancellationToken ct)
     {
+        using var scope = _scopeFactory.CreateScope();
+
         try
         {
-            var candle = await _candleGatewayService.GetCandlesAsync(symbol.Name, ct);
+            var candleGatewayService = scope.ServiceProvider.GetRequiredService<ICandleGatewayService>();
+            var candle = await candleGatewayService.GetCandlesAsync(symbol.Name, ct);
 
-            var @event = _mapper.Map<CandleCreated>(candle);
+            var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+            var @event = mapper.Map<CandleCreated>(candle);
 
-            await _eventBus.PublishAsync(@event);
+            var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+            await eventBus.PublishAsync(@event);
 
-            var candleEntity = _mapper.Map<Candle>(candle);
+            var candleEntity = mapper.Map<Candle>(candle);
 
             candleEntity.SymbolId = symbol.Id;
 
-            foreach (var store in _stores)
+            var stores = scope.ServiceProvider.GetRequiredService<IEnumerable<IStore<Candle>>>();
+            foreach (var store in stores)
             {
                 await store.StoreAsync(candleEntity, ct);
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed for {Symbol}", symbol);
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<MarketPollingService>>();
+            logger.LogCritical(ex, "Failed for {Symbol}", symbol);
         }
     }
 

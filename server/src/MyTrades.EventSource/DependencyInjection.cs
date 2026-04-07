@@ -14,7 +14,7 @@ public static class DependencyInjection
         services.AddMarten(options =>
             {
                 // Establish the connection string to your Marten database
-                options.Connection(config.GetConnectionString("Marten")!);
+                options.Connection(config.GetConnectionString("DefaultConnection")!);
 
                 // If you want the Marten controlled PostgreSQL objects
                 // in a different schema other than "public"

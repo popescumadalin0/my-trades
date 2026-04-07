@@ -22,7 +22,7 @@ public static class DependencyInjection
 
         services.AddHostedService<SymbolRefresher>();
 
-        services.AddSingleton<ISymbolLookup, SymbolLookup>();
+        services.AddScoped<ISymbolLookup, SymbolLookup>();
 
         services.AddGatewayServices(config);
 
