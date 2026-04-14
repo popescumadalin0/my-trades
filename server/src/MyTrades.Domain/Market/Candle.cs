@@ -1,11 +1,10 @@
-using System;
-
 namespace MyTrades.Domain.Market;
 
+[TableName("candles")]
 public class Candle : IEntity
 {
-    public string Id { get; set; }
-    public string SymbolId { get; set; }
+    public long Id { get; set; }
+    public long SymbolId { get; set; }
     public DateTime Time { get; set; }
     public decimal Open { get; set; }
     public decimal High { get; set; }

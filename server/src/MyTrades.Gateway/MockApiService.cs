@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using MyTrades.Gateway.Exceptions;
 using MyTrades.Gateway.Refit.Clients;
 using MyTrades.Gateway.Refit.Responses;

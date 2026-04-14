@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using FastEndpoints;
 
 namespace MyTrades.Api.TestEndpoint;
@@ -18,6 +16,6 @@ public class MyEndpoint : Endpoint<MyRequest, MyResponse>
         {
             FullName = req.FirstName + " " + req.LastName,
             IsOver18 = req.Age > 18
-        });
+        }, ct);
     }
 }

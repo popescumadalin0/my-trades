@@ -1,3 +1,3 @@
 namespace MyTrades.EventSource.Events;
 
-public record SymbolUpdated(string Id, string Name) : IEvent;
+public record SymbolUpdated(long Id, string Name) : IEvent;

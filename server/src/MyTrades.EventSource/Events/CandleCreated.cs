@@ -1,7 +1,7 @@
 namespace MyTrades.EventSource.Events;
 
 public record CandleCreated(
-    string Id,
+    long Id,
     string SymbolName,
     DateTime Time,
     decimal Open,

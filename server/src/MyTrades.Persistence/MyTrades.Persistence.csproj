@@ -15,6 +15,9 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0"/>
     </ItemGroup>
     <ItemGroup>
+        <EmbeddedResource Include="Migrations\002_AddDeadLetterEventsTable.sql">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
         <None Remove="Migrations\000_Init.sql"/>
         <EmbeddedResource Include="Migrations\000_Init.sql">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

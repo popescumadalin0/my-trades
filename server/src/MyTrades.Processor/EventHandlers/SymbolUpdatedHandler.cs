@@ -1,9 +1,11 @@
 using MyTrades.EventSource;
 using MyTrades.EventSource.Events;
+using MyTrades.EventSource.Retry;
 using MyTrades.Processor.Contracts;
 
 namespace MyTrades.Processor.EventHandlers;
 
+[RetryPolicy(maxAttempts: 3, delayMs: 500, useExponentialBackoff: true)]
 public class SymbolUpdatedHandler : IEventHandler<SymbolUpdated>
 {
     private readonly ISymbolLookup _lookUp;

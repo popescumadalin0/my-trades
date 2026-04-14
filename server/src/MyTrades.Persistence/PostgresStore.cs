@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using MyTrades.Domain;
 using MyTrades.Persistence.Contracts;
 
@@ -15,7 +13,7 @@ public class PostgresStore<TEntity> : IStore<TEntity>
         _repositoryDriver = repositoryDriver;
     }
 
-    public Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default)
+    public Task<TEntity> GetAsync(long id, CancellationToken cancellationToken = default)
     {
         return _repositoryDriver.GetByIdAsync(id, cancellationToken);
     }

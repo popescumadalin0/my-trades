@@ -1,10 +1,8 @@
-using Mapster;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyTrades.EventSource;
 using MyTrades.EventSource.Events;
 using MyTrades.Gateway;
-using MyTrades.Persistence;
 using MyTrades.Processor.BackgroundServices;
 using MyTrades.Processor.Contracts;
 using MyTrades.Processor.EventHandlers;
@@ -22,7 +20,7 @@ public static class DependencyInjection
 
         services.AddHostedService<SymbolRefresher>();
 
-        services.AddScoped<ISymbolLookup, SymbolLookup>();
+        services.AddSingleton<ISymbolLookup, SymbolLookup>();
 
         services.AddGatewayServices(config);
 

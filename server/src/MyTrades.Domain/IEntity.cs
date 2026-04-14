@@ -2,5 +2,5 @@ namespace MyTrades.Domain;
 
 public interface IEntity
 {
-    string Id { get; set; }
+    long Id { get; set; }
 }

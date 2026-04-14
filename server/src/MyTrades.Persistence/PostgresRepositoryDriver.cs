@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Reflection;
 using Dapper;
+using MyTrades.Domain;
 using MyTrades.Persistence.Contracts;
 
 namespace MyTrades.Persistence;
@@ -15,10 +13,11 @@ public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
     public PostgresRepositoryDriver(DapperDbContext dbContext)
     {
         _dbContext = dbContext;
-        _tableName = typeof(TEntity).Name.ToLower();
+        _tableName = typeof(TEntity).GetCustomAttribute<TableNameAttribute>()?.Name
+                     ?? typeof(TEntity).Name.ToLower();
     }
 
-    public async Task<TEntity> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken = default)
     {
         var sql = $"SELECT * FROM {_tableName} WHERE id = @Id";
 

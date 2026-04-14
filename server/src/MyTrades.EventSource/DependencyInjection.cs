@@ -1,5 +1,3 @@
-using System;
-using JasperFx.Core.IoC;
 using Marten;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +30,7 @@ public static class DependencyInjection
 
         services.AddHostedService<EventDispatcher>();
 
-        services.AddTransient<IEventBus, InMemoryEventBus>();
+        services.AddSingleton<IEventBus, InMemoryEventBus>();
 
         services.RegisterEventHandlers();
 

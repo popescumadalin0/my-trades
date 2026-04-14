@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -20,19 +18,32 @@ public class SymbolRefresher : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using var scope = _scopeFactory.CreateScope();
-
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<SymbolRefresher>>();
-        logger.LogInformation($"Started {nameof(SymbolRefresher)}");
-
-        var symbolRepository = scope.ServiceProvider.GetRequiredService<IRepositoryDriver<Symbol>>();
-        
-        var symbols = await symbolRepository.GetAllAsync(stoppingToken);
-
-        var symbolLookup = scope.ServiceProvider.GetRequiredService<ISymbolLookup>();
-        foreach (var symbol in symbols)
+        while (!stoppingToken.IsCancellationRequested)
         {
-            await symbolLookup.StoreSymbolNameAsync(new NameIdentifier(symbol.Name, symbol.Id));
+            using var scope = _scopeFactory.CreateScope();
+
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<SymbolRefresher>>();
+
+            try
+            {
+                logger.LogInformation($"Started {nameof(SymbolRefresher)}");
+
+                var symbolRepository = scope.ServiceProvider.GetRequiredService<IRepositoryDriver<Symbol>>();
+
+                var symbols = await symbolRepository.GetAllAsync(stoppingToken);
+
+                var symbolLookup = scope.ServiceProvider.GetRequiredService<ISymbolLookup>();
+                foreach (var symbol in symbols)
+                {
+                    await symbolLookup.StoreSymbolNameAsync(new NameIdentifier(symbol.Name, symbol.Id));
+                }
+
+                await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to refresh symbols");
+            }
         }
     }
 }

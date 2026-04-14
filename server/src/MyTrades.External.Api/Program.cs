@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Concurrent;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using MyTrades.External.Api;
 
 var builder = WebApplication.CreateBuilder(args);

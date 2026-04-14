@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,9 +15,15 @@ public class MarketPollingService : BackgroundService
 {
     private readonly IServiceScopeFactory _scopeFactory;
 
-    public MarketPollingService(IServiceScopeFactory scopeFactory)
+    private readonly ISymbolLookup _symbolLookup;
+
+    private readonly IEventBus _eventBus;
+
+    public MarketPollingService(IServiceScopeFactory scopeFactory, IEventBus eventBus, ISymbolLookup symbolLookup)
     {
         _scopeFactory = scopeFactory;
+        _eventBus = eventBus;
+        _symbolLookup = symbolLookup;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -33,18 +34,16 @@ public class MarketPollingService : BackgroundService
         {
             using var scope = _scopeFactory.CreateScope();
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<MarketPollingService>>();
-            var symbolLookup = scope.ServiceProvider.GetRequiredService<ISymbolLookup>();
 
             logger.LogInformation($"Started {nameof(MarketPollingService)}");
 
             logger.LogDebug($"Fetching candles {nameof(MarketPollingService)}");
 
-            var symbols = await symbolLookup.GetAllAsync();
+            var symbols = await _symbolLookup.GetAllAsync();
 
             var tasks = symbols.Select(s => FetchAndProcess(s, stoppingToken));
 
             await Task.WhenAll(tasks);
-
 
             await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
@@ -62,8 +61,7 @@ public class MarketPollingService : BackgroundService
             var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
             var @event = mapper.Map<CandleCreated>(candle);
 
-            var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
-            await eventBus.PublishAsync(@event);
+            await _eventBus.PublishAsync(@event);
 
             var candleEntity = mapper.Map<Candle>(candle);
 
@@ -85,8 +83,7 @@ public class MarketPollingService : BackgroundService
     private static async Task AlignToNextMinute(CancellationToken token)
     {
         var now = DateTime.UtcNow;
-        var delay = TimeSpan.FromSeconds(60 - now.Second);
-
-        await Task.Delay(delay, token);
+        var secondsUntilNextMinute = now.Second == 0 ? 0 : 60 - now.Second;
+        await Task.Delay(TimeSpan.FromSeconds(secondsUntilNextMinute), token);
     }
 }

@@ -1,8 +1,4 @@
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MyTrades.Processor.Contracts;
 
 namespace MyTrades.Processor;
@@ -10,13 +6,13 @@ namespace MyTrades.Processor;
 public class SymbolLookup : ISymbolLookup
 {
     //{symbolName, Id}
-    private ConcurrentDictionary<string, string> _symbolLookup;
+    private ConcurrentDictionary<string, long> _symbolLookup;
 
     public Task<IEnumerable<NameIdentifier>> GetAllAsync()
     {
         if (_symbolLookup == null)
         {
-            return null;
+            return Task.FromResult(Enumerable.Empty<NameIdentifier>());
         }
 
         var list = _symbolLookup.Select(s => new NameIdentifier(s.Key, s.Value));
@@ -26,7 +22,7 @@ public class SymbolLookup : ISymbolLookup
 
     public Task StoreSymbolNameAsync(NameIdentifier nameIdentifier)
     {
-        _symbolLookup ??= new ConcurrentDictionary<string, string>();
+        _symbolLookup ??= new ConcurrentDictionary<string, long>();
 
         var value = _symbolLookup.AddOrUpdate(nameIdentifier.Name, nameIdentifier.Id,
             (key, oldValue) => nameIdentifier.Id);
@@ -39,4 +35,4 @@ public class SymbolLookup : ISymbolLookup
     }
 }
 
-public record NameIdentifier(string Name, string Id);
+public record NameIdentifier(string Name, long Id);

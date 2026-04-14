@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using MyTrades.Gateway.Refit.Responses;
 using Refit;
 
@@ -7,7 +5,7 @@ namespace MyTrades.Gateway.Refit.Clients;
 
 public interface IMockApi
 {
-    [Get("api/candle")]
+    [Get("/api/candle")]
     Task<CandleResponse> GetCandleAsync([Query]string symbol, CancellationToken cancellationToken);
 }
 

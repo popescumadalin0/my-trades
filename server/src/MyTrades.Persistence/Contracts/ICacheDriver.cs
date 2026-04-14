@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace MyTrades.Persistence.Contracts;
 
 public interface ICacheRepository<TEntity>

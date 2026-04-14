@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using MyTrades.Domain;
 using MyTrades.Persistence.Contracts;
 
@@ -15,14 +13,14 @@ public class RedisStore<TEntity> : IStore<TEntity>
         _cacheRepository = cacheRepository;
     }
 
-    public Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default)
+    public Task<TEntity> GetAsync(long id, CancellationToken cancellationToken = default)
     {
-        return _cacheRepository.GetItem(id, cancellationToken);
+        return _cacheRepository.GetItem(id.ToString(), cancellationToken);
     }
 
     public Task StoreAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        var cacheKey = entity.Id;
+        var cacheKey = entity.Id.ToString();
 
         return _cacheRepository.SetItem(cacheKey, entity, cancellationToken);
     }

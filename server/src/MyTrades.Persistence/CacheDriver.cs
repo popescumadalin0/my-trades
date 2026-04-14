@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using MessagePack;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
@@ -24,23 +21,25 @@ public class CacheDriver<TEntity> : ICacheRepository<TEntity>
 
     public async Task<TEntity> GetItem(string key, CancellationToken token = default)
     {
-        string cacheKey = $"Item_{key}";
+        var cacheKey = $"Item_{key}";
 
         var bytes = await _cache.GetAsync(cacheKey, token);
         
         if (bytes != null)
         {
             _logger.LogDebug("✅ Item retrieved from cache!");
-            return MessagePackSerializer.Deserialize<TEntity>(bytes);
+            return MessagePackSerializer.Deserialize<TEntity>(bytes, cancellationToken: token);
         }
 
         throw new KeyNotFoundException($"Item with key {key} not found in cache!");
     }
-
+    
     public Task SetItem(string key, TEntity item, CancellationToken token = default)
     {
-        var bytes = MessagePackSerializer.Serialize(item, MessagePack.Resolvers.ContractlessStandardResolver.Options);
+        var cacheKey = $"Item_{key}";
+    
+        var bytes = MessagePackSerializer.Serialize(item, MessagePack.Resolvers.ContractlessStandardResolver.Options, token);
 
-        return _cache.SetAsync(key, bytes, token: token);
+        return _cache.SetAsync(cacheKey, bytes, token: token);
     }
 }
