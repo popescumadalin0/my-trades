@@ -1,6 +1,9 @@
+using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyTrades.Domain.Market;
 using MyTrades.EventSource.Retry;
+using MyTrades.Persistence.Contracts;
 
 namespace MyTrades.EventSource.BackgroundService;
 
@@ -45,12 +48,12 @@ public class EventDispatcher : Microsoft.Extensions.Hosting.BackgroundService
             return;
         }
 
-        var tasks = handlers.Select(handler => ExecuteHandler(handler!, evt, ct));
+        var tasks = handlers.Select(handler => ExecuteHandler(handler!, evt, scope, ct));
 
         await Task.WhenAll(tasks);
     }
 
-    private async Task ExecuteHandler(object handler, IEvent evt, CancellationToken ct)
+    private async Task ExecuteHandler(object handler, IEvent evt, IServiceScope scope, CancellationToken ct)
     {
         var handlerType = handler.GetType();
         var eventType = evt.GetType();
@@ -83,7 +86,43 @@ public class EventDispatcher : Microsoft.Extensions.Hosting.BackgroundService
                 "Handler {Handler} exhausted all retries for event {EventType} after {Attempts} attempts",
                 ex.HandlerName, ex.EventType, ex.Attempts);
 
-            //todo: dead letter – urmează în pasul următor
+            await SendToDeadLetterAsync(scope, evt, ex, ct);
+        }
+    }
+
+    private async Task SendToDeadLetterAsync(
+        IServiceScope scope,
+        IEvent evt,
+        HandlerException ex,
+        CancellationToken ct)
+    {
+        try
+        {
+            var deadLetterService = scope.ServiceProvider.GetService<IStore<DeadLetterEntry>>();
+
+            if (deadLetterService == null)
+            {
+                _logger.LogWarning("IDeadLetterService not registered. Event will be lost.");
+                return;
+            }
+
+            var eventData = JsonSerializer.Serialize(evt, evt.GetType());
+
+            await deadLetterService.StoreAsync(
+                new DeadLetterEntry()
+                {
+                    Attempts = ex.Attempts,
+                    Error = ex.InnerException?.Message ?? ex.Message,
+                    EventData = eventData,
+                    EventType = ex.EventType,
+                    Handler = ex.HandlerName,
+                }, ct);
+        }
+        catch (Exception deadLetterEx)
+        {
+            _logger.LogCritical(deadLetterEx,
+                "Failed to save dead letter for event {EventType} from handler {Handler}. Event is lost.",
+                ex.EventType, ex.HandlerName);
         }
     }
 }

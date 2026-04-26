@@ -1,6 +1,9 @@
+using MyTrades.Domain;
+
 namespace MyTrades.Persistence.Contracts;
 
 public interface IRepositoryDriver<TEntity>
+    where TEntity : IEntity
 {
     Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken = default);
     Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);

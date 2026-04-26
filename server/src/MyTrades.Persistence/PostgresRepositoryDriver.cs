@@ -6,6 +6,7 @@ using MyTrades.Persistence.Contracts;
 namespace MyTrades.Persistence;
 
 public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
+    where TEntity : IEntity
 {
     private readonly DapperDbContext _dbContext;
     private readonly string _tableName;
@@ -14,7 +15,7 @@ public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
     {
         _dbContext = dbContext;
         _tableName = typeof(TEntity).GetCustomAttribute<TableNameAttribute>()?.Name
-                     ?? typeof(TEntity).Name.ToLower();
+                     ?? typeof(TEntity).Name.ToSnakeCase();
     }
 
     public async Task<TEntity> GetByIdAsync(long id, CancellationToken cancellationToken = default)
@@ -41,9 +42,10 @@ public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
 
     public async Task InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        var properties = typeof(TEntity).GetProperties();
+        var properties = typeof(TEntity).GetProperties()
+            .Where(p => p.Name != nameof(IEntity.Id));
 
-        var columns = string.Join(",", properties.Select(p => p.Name.ToLower()));
+        var columns = string.Join(",", properties.Select(p => p.Name.ToSnakeCase()));
         var values = string.Join(",", properties.Select(p => "@" + p.Name));
 
         var sql = $"INSERT INTO {_tableName} ({columns}) VALUES ({values})";
@@ -57,9 +59,9 @@ public class PostgresRepositoryDriver<TEntity> : IRepositoryDriver<TEntity>
     public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         var properties = typeof(TEntity).GetProperties()
-            .Where(p => p.Name != "Id");
+            .Where(p => p.Name != nameof(IEntity.Id));
 
-        var setClause = string.Join(",", properties.Select(p => $"{p.Name.ToLower()} = @{p.Name}"));
+        var setClause = string.Join(",", properties.Select(p => $"{p.Name.ToSnakeCase()} = @{p.Name}"));
 
         var sql = $"UPDATE {_tableName} SET {setClause} WHERE id = @Id";
 

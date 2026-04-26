@@ -15,6 +15,5 @@
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <ProjectReference Include="..\MyTrades.EventSource\MyTrades.EventSource.csproj" />
     <ProjectReference Include="..\MyTrades.Gateway\MyTrades.Gateway.csproj" />
-    <ProjectReference Include="..\MyTrades.Persistence\MyTrades.Persistence.csproj" />
   </ItemGroup>
 </Project>
