@@ -1,15 +1,14 @@
 namespace MyTrades.EventSource.Events;
 
 public record CandleCreated(
-    long Id,
     string SymbolName,
-    DateTime Time,
-    decimal Open,
-    decimal High,
-    decimal Low,
-    decimal Close,
+    DateTimeOffset Timeframe,
+    DateTimeOffset OpenTime,
+    DateTimeOffset CloseTime,
+    decimal OpenPrice,
+    DateTimeOffset CreatedAt,
     decimal Volume,
-    decimal OpenInterest,
-    decimal HighestPrice,
-    decimal LowestPrice,
+    decimal TradeCount,
+    decimal HighPrice,
+    decimal LowPrice,
     decimal ClosePrice) : IEvent;
