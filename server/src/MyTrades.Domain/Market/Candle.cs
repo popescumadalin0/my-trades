@@ -5,7 +5,7 @@ public class Candle : IEntity
 {
     public long Id { get; set; }
     public long SymbolId { get; set; }
-    public DateTimeOffset Timeframe { get; set; }
+    public string Timeframe { get; set; }
     public DateTimeOffset OpenTime { get; set; }
     public decimal HighPrice { get; set; }
     public decimal LowPrice { get; set; }
@@ -13,6 +13,6 @@ public class Candle : IEntity
     public decimal Volume { get; set; }
     public decimal ClosePrice { get; set; }
     public decimal OpenPrice { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
     public int TradeCount { get; set; }
 }

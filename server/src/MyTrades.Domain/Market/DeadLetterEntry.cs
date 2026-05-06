@@ -9,5 +9,5 @@ public class DeadLetterEntry : IEntity
     public string Handler { get; set; } = string.Empty;
     public string Error { get; set; } = string.Empty;
     public int Attempts { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTimeOffset CreatedAt { get; set; } = DateTime.UtcNow;
 }

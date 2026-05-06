@@ -2,7 +2,7 @@ namespace MyTrades.EventSource.Events;
 
 public record CandleCreated(
     string SymbolName,
-    DateTimeOffset Timeframe,
+    string Timeframe,
     DateTimeOffset OpenTime,
     DateTimeOffset CloseTime,
     decimal OpenPrice,

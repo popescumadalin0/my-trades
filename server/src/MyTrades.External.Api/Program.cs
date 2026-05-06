@@ -6,8 +6,8 @@ var app = builder.Build();
 
 app.MapGet("/api/candle", (string symbol = "BTCUSDT") =>
 {
-    var now = DateTime.UtcNow;
-    var minuteKey = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
+    var now = DateTimeOffset.UtcNow;
+    var minuteKey = new DateTimeOffset(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0, TimeSpan.Zero);
 
     var candle = MarketSimulator.GetCurrentCandle(symbol, minuteKey);
 
@@ -19,14 +19,18 @@ app.Run();
 namespace MyTrades.External.Api
 {
     public record Candle(
-        string Symbol,
-        DateTime OpenTime,
-        decimal Open,
-        decimal High,
-        decimal Low,
-        decimal Close,
-        decimal Volume
-    );
+        string SymbolName,
+        string Timeframe,
+        DateTimeOffset OpenTime,
+        decimal HighPrice,
+        decimal LowPrice,
+        DateTimeOffset CloseTime,
+        decimal Volume,
+        decimal ClosePrice,
+        decimal OpenPrice,
+        DateTimeOffset CreatedAt,
+        int TradeCount);
+
 
     public static class MarketSimulator
     {
@@ -34,7 +38,7 @@ namespace MyTrades.External.Api
         private static readonly ConcurrentDictionary<string, decimal> LastClose = new();
         private static readonly Random Random = new();
 
-        public static Candle GetCurrentCandle(string symbol, DateTime minuteKey)
+        public static Candle GetCurrentCandle(string symbol, DateTimeOffset minuteKey)
         {
             var key = $"{symbol}_{minuteKey:yyyyMMddHHmm}";
 
@@ -58,15 +62,19 @@ namespace MyTrades.External.Api
 
                 var candle = new Candle(
                     symbol,
-                    minuteKey,
-                    decimal.Round(previousClose, 2),
+                    "1H",
+                    DateTimeOffset.UtcNow,
                     decimal.Round(high, 2),
                     decimal.Round(low, 2),
+                    DateTimeOffset.UtcNow,
+                    decimal.Round(volume, 2),
                     decimal.Round(close, 2),
-                    decimal.Round(volume, 2)
+                    decimal.Round(previousClose, 2),
+                    DateTimeOffset.UtcNow,
+                    200
                 );
 
-                LastClose[symbol] = candle.Close;
+                LastClose[symbol] = candle.ClosePrice;
 
                 return candle;
             });

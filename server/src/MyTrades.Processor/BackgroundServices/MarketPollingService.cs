@@ -82,7 +82,7 @@ public class MarketPollingService : BackgroundService
 
     private static async Task AlignToNextMinute(CancellationToken token)
     {
-        var now = DateTime.UtcNow;
+        var now = DateTimeOffset.UtcNow;
         var secondsUntilNextMinute = now.Second == 0 ? 0 : 60 - now.Second;
         await Task.Delay(TimeSpan.FromSeconds(secondsUntilNextMinute), token);
     }
